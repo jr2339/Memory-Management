@@ -1,15 +1,15 @@
 //
-//  main.c
+//  main.cpp
 //  Project1
 //
-//  Created by jr2339 on 4/15/17.
+//  Created by jr2339 on 4/16/17.
 //  Copyright © 2017 jr2339. All rights reserved.
 //
 
-#include <stdio.h>
+#include <iostream>
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    printf("Hello, World!\n");
+    std::cout << "Hello, World!\n";
     return 0;
 }
