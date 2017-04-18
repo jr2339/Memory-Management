@@ -9,14 +9,16 @@
 #include "Pointer.hpp"
 #include <iostream>
 
-Page::Page(int page_number,unsigned int max,uint64_t addr){
+Page::Page(unsigned int size,unsigned int max,uint64_t addr){
     
     root_pointer_address = addr;
     current_poistion = 0;
     max_count = max;
+    struct_size = size;
+    memory = malloc(struct_size*max_count);// still has some questions at here
     //Allocate the memory for our page
-    int total = pow(256, page_number);
-    memory = malloc(sizeof(char)*total);
+    //int total = pow(256, page_number);
+    //memory = malloc(sizeof(char)*total);
 }
 
 
@@ -47,4 +49,41 @@ uint64_t Page::get_next_pointer_address(){
         return root_pointer_address + current_poistion++;
     }
 }
+
+//==============================================MemoryAllocator========================================//
+MemoryAllocator::MemoryAllocator(int size){
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

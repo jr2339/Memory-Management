@@ -18,7 +18,7 @@
 //So, I am tring to use C++ to solve it
 class Page{
 public:
-    Page(int page_number,unsigned int max,uint64_t addr);
+    Page(unsigned int size,unsigned int max,uint64_t addr);
     ~Page();
     
     bool is_full();
@@ -26,6 +26,7 @@ public:
     
 private:
     void* memory;
+    unsigned int struct_size;
     unsigned int max_count;
     unsigned int current_poistion;
     uint64_t root_pointer_address; // unit64_t means this variable at here is 8 bytes
