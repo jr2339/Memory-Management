@@ -22,7 +22,8 @@ public:
     ~Page();
     
     bool is_full();
-    uint64_t get_next_pointer_address();
+    uint64_t get_next_address();
+    
     
 private:
     void* memory;
@@ -43,15 +44,15 @@ public:
     void* reference(uint64_t virtual_pointer);
     
 private:
-    unsigned int size;
-    unsigned int size_perpage;
+    unsigned int struct_size;
+    unsigned int per_page_size;
     uint64_t next_page_address;
     
     std::vector<Page*> pages;
     
     Page* addPage();
+    unsigned int get_page_size(unsigned int struct_size);
    
-    
 };
 
 

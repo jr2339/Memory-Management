@@ -7,7 +7,7 @@
 //
 
 #include "Pointer.hpp"
-#include <iostream>
+using namespace std;
 
 Page::Page(unsigned int size,unsigned int max,uint64_t addr){
     
@@ -40,9 +40,9 @@ bool Page::is_full(){
 
 //return the pointer address
 
-uint64_t Page::get_next_pointer_address(){
+uint64_t Page::get_next_address(){
     if (is_full()) {
-        std::cout <<" The Page is Full\n"<<std::endl;
+        cout <<" The Page is Full\n"<<endl;
         return 0;
     }
     else{
@@ -52,7 +52,20 @@ uint64_t Page::get_next_pointer_address(){
 
 //==============================================MemoryAllocator========================================//
 MemoryAllocator::MemoryAllocator(int size){
-    
+    struct_size = (unsigned int) size;
+    per_page_size = get_page_size(struct_size)/struct_size;
+    cout <<"Struct Size" << struct_size <<endl;
+    cout<<"Per-Page is " <<per_page_size<<endl;
+    next_page_address =1;
+    addPage();
+}
+
+
+//tring to free the Memory
+MemoryAllocator::~MemoryAllocator(){
+    //destroys the list by removing all elements
+    //from the list and sets size of list to zero.
+    pages.clear();
 }
 
 
