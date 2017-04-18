@@ -69,9 +69,21 @@ MemoryAllocator::~MemoryAllocator(){
 }
 
 
+uint64_t MemoryAllocator::allocate() {
+    Page *p = pages.back();
+    if (p->is_full()) {
+        p = addPage();
+    }
+    return p->get_next_address();
+}
 
-
-
+Page* MemoryAllocator::addPage(){
+    uint64_t root_pointer_address = next_page_address;
+    next_page_address = next_page_address + per_page_size;
+    Page* p = new Page(struct_size,per_page_size,root_pointer_address);
+    pages.push_back(p);
+    return p;
+}
 
 
 
