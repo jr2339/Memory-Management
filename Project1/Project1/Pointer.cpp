@@ -7,11 +7,13 @@
 //
 
 #include "Pointer.hpp"
+#include <iostream>
 
-
-Page::Page(int page_number){
+Page::Page(int page_number,unsigned int max,uint64_t addr){
     
-    
+    root_pointer_address = addr;
+    current_poistion = 0;
+    max_count = max;
     //Allocate the memory for our page
     int total = pow(256, page_number);
     memory = malloc(sizeof(char)*total);
@@ -23,4 +25,26 @@ Page::~Page(){
 }
 
 
+//To check our current page is full or not
+//If it is, we need to add one more page if we still need more space
+bool Page::is_full(){
+    if (current_poistion == max_count) {
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+//return the pointer address
+
+uint64_t Page::get_next_pointer_address(){
+    if (is_full()) {
+        std::cout <<" The Page is Full\n"<<std::endl;
+        return 0;
+    }
+    else{
+        return root_pointer_address + current_poistion++;
+    }
+}
 
