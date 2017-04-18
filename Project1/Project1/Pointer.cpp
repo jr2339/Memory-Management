@@ -8,7 +8,11 @@
 
 #include "Pointer.hpp"
 
-
+Page* page_Pointer(int size){
+  
+   
+    
+}
 
 
 

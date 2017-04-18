@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F68036A61EA36BF7003F5214 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68036A51EA36BF7003F5214 /* main.cpp */; };
 		F68036AE1EA36CB7003F5214 /* Pointer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68036AC1EA36CB7003F5214 /* Pointer.cpp */; };
+		F68036B11EA6C42A003F5214 /* Prefix_Trie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F68036AF1EA6C42A003F5214 /* Prefix_Trie.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,8 @@
 		F68036A51EA36BF7003F5214 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F68036AC1EA36CB7003F5214 /* Pointer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pointer.cpp; sourceTree = "<group>"; };
 		F68036AD1EA36CB7003F5214 /* Pointer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Pointer.hpp; sourceTree = "<group>"; };
+		F68036AF1EA6C42A003F5214 /* Prefix_Trie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Prefix_Trie.cpp; sourceTree = "<group>"; };
+		F68036B01EA6C42A003F5214 /* Prefix_Trie.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Prefix_Trie.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,8 @@
 				F68036A51EA36BF7003F5214 /* main.cpp */,
 				F68036AC1EA36CB7003F5214 /* Pointer.cpp */,
 				F68036AD1EA36CB7003F5214 /* Pointer.hpp */,
+				F68036AF1EA6C42A003F5214 /* Prefix_Trie.cpp */,
+				F68036B01EA6C42A003F5214 /* Prefix_Trie.hpp */,
 			);
 			path = Project1;
 			sourceTree = "<group>";
@@ -125,6 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F68036A61EA36BF7003F5214 /* main.cpp in Sources */,
+				F68036B11EA6C42A003F5214 /* Prefix_Trie.cpp in Sources */,
 				F68036AE1EA36CB7003F5214 /* Pointer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,6 +260,7 @@
 				F68036AB1EA36BF7003F5214 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

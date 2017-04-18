@@ -11,6 +11,24 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <vector>
+#include <cmath>
+#include <iostream>
+#include "Prefix_Trie.hpp"
+
+
+typedef struct Index
+{
+    char page_index;
+    char offset;
+}Index;
+
+
+//We still need to discuss the structure of the Page
+typedef struct Page{
+    Node* DNA_Sequence;
+    
+}Page;
 
 
 #endif /* Pointer_hpp */
