@@ -8,7 +8,7 @@
 
 #include "Pointer.hpp"
 
-int count_pages(const char* filename){
+int count_pages(const char* filename,int rows_in_page){
     int total_pages =0;
     int size =0;
     int row =0;
@@ -36,18 +36,25 @@ int count_pages(const char* filename){
         }
         
     }
-    total_pages = row/1024; // this means each page has 1024 row
+    total_pages = row/rows_in_page; // this means each page has 1024 row
     
     return total_pages;
 }
 
 
 
-Page** page_Pointer(int size, const char* filename){
+
+Page** page_Pointer(const char* filename,int rows_in_page){
     
-    int total_pages = count_pages(filename);
+    int total_pages = count_pages(filename,rows_in_page);
     
     Page** pages = (Page**)malloc(total_pages*sizeof(Page*));
+    for (int i=0; i<total_pages; i++) {
+        pages[i] = (Page*)malloc(rows_in_page*sizeof(Page));
+        //tring to use prefix tree at here
+        //think this is the most difficult part for our project
+    }
+    
     
     
     
