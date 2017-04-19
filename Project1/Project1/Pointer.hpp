@@ -27,7 +27,8 @@ typedef struct Index
 //We still need to discuss the structure of the Page
 typedef struct Page{
     Node* DNA_Sequence;
-    
+    int capacity;  //how many nodes we could have for each Page
+    int offset;    //the node we are visiting
 }Page;
 
 
