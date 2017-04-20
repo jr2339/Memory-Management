@@ -2,12 +2,12 @@
 //  Prefix_Trie.hpp
 //  Project1
 //
-//  Created by jr2339 on 4/18/17.
+//  Created by jr2339 on 4/19/17.
 //  Copyright © 2017 jr2339. All rights reserved.
 //
 
-#ifndef Prefix_Trie_h
-#define Prefix_Trie_h
+#ifndef Prefix_Trie_hpp
+#define Prefix_Trie_hpp
 
 #include <cstdlib>
 #include <cstdio>
