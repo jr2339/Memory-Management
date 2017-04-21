@@ -9,18 +9,19 @@
 #include "Pointer.hpp"
 /***********************************************************************
  uint64_t: Integer type with a width of exactly 64 bits which is 8 bytes.
- root_address: assign with any number, at here, we assign it to 1 as the 1st page address
- max_count: variable be used to check our page is full or not
- current_offet: index to node we are current visiting
- Memory: Total memory for each page is the sum of all Nodes
+ Page has these attributes:
+ 1.root_address: assign with any number, at here, we assign it to 1 as the 1st page address
+ 2.max_count: variable be used to check our page is full or not
+ 3.current_offet: index to node we are current visiting
+ 4.Memory: Total memory for each page is the sum of all Nodes
  ************************************************************************/
 
 Page::Page(uint64_t address, unsigned int max, unsigned int size){
-    root_address = address;
+    root_address = address;  //Each Page has a root ADDRESS
     max_count = max;
     Node_size = size;
     current_offset = 0;
-    memory = malloc(Node_size * max_count);
+    memory = malloc(Node_size * max_count); //Space for Each Page
 }
 /*******************************************************************************
  ~Page()
@@ -49,6 +50,7 @@ bool Page::is_full(){
 
 uint64_t Page::get_next_address(){
     if (is_full()) {
+        cout << "This Page is full" <<endl;
         return 0;
     }
     return root_address + current_offset++;
