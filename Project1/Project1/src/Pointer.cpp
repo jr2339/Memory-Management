@@ -64,22 +64,38 @@ void *Page::get_memory_of(unsigned int offset) {
 }
 
 
+/******************************************************************************
+ ******************************************************************************
+ ******************************************************************************
+ ******************************************************************************
+ ******************************************************************************
+ ******************************************************************************/
+
+/***********************************************************************
+After we figure out page construct, we will allocate memory
+ ************************************************************************/
+
 MemoryAllocator::MemoryAllocator(int size){
     Node_size = (unsigned int)size;
-    per_page_size = get_page_size(Node_size)/Node_size;
-    cout << "Node Size " << Node_size << endl;
-    cout << "Per-Page Size " << per_page_size << endl;
+    per_page_size = get_total_page_size(Node_size)/Node_size;
+    //init the 1st page address
     next_page_address = 1;
     addPage();
-    
 }
-
+/*******************************************************************************
+ ~MemoryAllocator()
+ -Default deconstructor.  Deletes All Pages in allocated Memory.
+ ******************************************************************************/
 MemoryAllocator::~MemoryAllocator(){
     for (uint64_t i = pages.size()-1 ; i>-1; i--) {
         delete(pages[i]);
     }
     pages.clear();
 }
+/*******************************************************************************
+ allocator()
+Allcoate enough memory to store our pages
+ ******************************************************************************/
 
 uint64_t MemoryAllocator::allocate(){
     Page *p = pages.back();
@@ -89,23 +105,24 @@ uint64_t MemoryAllocator::allocate(){
     return p->get_next_address();
 }
 
-
-void* MemoryAllocator::reference(uint64_t virtual_pointer){
+/*******************************************************************************
+ memory()
+ get memory
+ ******************************************************************************/
+void* MemoryAllocator::memory(uint64_t virtual_pointer){
     if (!virtual_pointer) {
         return NULL;
     }
     uint64_t page_id = ((uint64_t)(virtual_pointer-(uint64_t)next_page_address))/per_page_size;
     unsigned int struct_id = virtual_pointer % per_page_size;
-    try {
-        return pages.at(page_id)->get_memory_of(struct_id);
-    } catch (...) {
-        cout << virtual_pointer << endl;
-        cout << page_id << endl;
-        cout << struct_id << endl;
-        throw "Reference died";
-    }
+    
+    return pages.at(page_id)->get_memory_of(struct_id);
+ 
 }
-
+/*******************************************************************************
+addPage()
+Used for page is not enough
+ ******************************************************************************/
 Page* MemoryAllocator::addPage(){
     uint64_t root_address = next_page_address;
     next_page_address = next_page_address + per_page_size;
@@ -115,10 +132,11 @@ Page* MemoryAllocator::addPage(){
     
 }
 
-
-
-
-unsigned int MemoryAllocator::get_page_size(unsigned int Node_size){
+/*******************************************************************************
+get_total_page_size(unsigned int Node_size)
+How many memory do we need
+ ******************************************************************************/
+unsigned int MemoryAllocator::get_total_page_size(unsigned int Node_size){
     unsigned int pointer_size = sizeof(void*);
     Node_size *= 1024;
     
