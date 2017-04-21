@@ -25,7 +25,7 @@ public:
     
 private:
     void *memory;
-    unsigned int struct_size;
+    unsigned int Node_size;
     unsigned int max_count;
     unsigned int current_offset;
     uint64_t root_address;
@@ -36,20 +36,20 @@ private:
 
 class MemoryAllocator{
 public:
-    MemoryAllocator(int struct_size);
+    MemoryAllocator(int Node_size);
     ~MemoryAllocator();
     
     uint64_t allocate();
     void* reference(uint64_t vortual_pointer);
     
 private:
-    unsigned int struct_size;
+    unsigned int Node_size;
     unsigned int per_page_size;
     uint64_t next_page_address;
     vector<Page*>pages;
     
     Page* addPage();
-    unsigned int get_page_size(unsigned int struct_size);
+    unsigned int get_page_size(unsigned int Node_size);
 };
 
 
