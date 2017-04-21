@@ -7,7 +7,13 @@
 //
 
 #include "Pointer.hpp"
-
+/***********************************************************************
+ uint64_t: Integer type with a width of exactly 64 bits which is 8 bytes.
+ root_address: assign with any number, at here, we assign it to 1 as the 1st page address
+ max_count: variable be used to check our page is full or not
+ current_offet: index to node we are current visiting
+ Memory: Total memory for each page is the sum of all Nodes
+ ************************************************************************/
 
 Page::Page(uint64_t address, unsigned int max, unsigned int size){
     root_address = address;
@@ -16,12 +22,18 @@ Page::Page(uint64_t address, unsigned int max, unsigned int size){
     current_offset = 0;
     memory = malloc(Node_size * max_count);
 }
-
+/*******************************************************************************
+ ~Page()
+ -Default deconstructor.  Deletes All Nodes in each page.
+ ******************************************************************************/
 
 Page::~Page(){
     free(memory);
 }
-
+/*******************************************************************************
+ Page::is_full()
+ -Using current_offsets and max_count to check page is filled with node or not
+ ******************************************************************************/
 
 bool Page::is_full(){
     if (current_offset != max_count) {
@@ -29,8 +41,11 @@ bool Page::is_full(){
     }
     return true;
 }
-
-
+/*******************************************************************************
+ Page::get_next_address()
+ -If the page is not full, we using root_address 
+ and offset to show the Node Address in the pase
+ ******************************************************************************/
 
 uint64_t Page::get_next_address(){
     if (is_full()) {
@@ -38,8 +53,12 @@ uint64_t Page::get_next_address(){
     }
     return root_address + current_offset++;
 }
-
-void *Page::get_reference_of(unsigned int offset) {
+/*******************************************************************************
+ Page::get_memory_of(unsigned int offset)
+ -We need to decide the node locate in which page
+ and we can return how many memory we need
+ ******************************************************************************/
+void *Page::get_memory_of(unsigned int offset) {
     memory = static_cast<char *>(memory) + (offset * Node_size);
     return memory;
 }
@@ -78,7 +97,7 @@ void* MemoryAllocator::reference(uint64_t virtual_pointer){
     uint64_t page_id = ((uint64_t)(virtual_pointer-(uint64_t)next_page_address))/per_page_size;
     unsigned int struct_id = virtual_pointer % per_page_size;
     try {
-        return pages.at(page_id)->get_reference_of(struct_id);
+        return pages.at(page_id)->get_memory_of(struct_id);
     } catch (...) {
         cout << virtual_pointer << endl;
         cout << page_id << endl;
@@ -99,7 +118,23 @@ Page* MemoryAllocator::addPage(){
 
 
 
-
+unsigned int MemoryAllocator::get_page_size(unsigned int Node_size){
+    unsigned int pointer_size = sizeof(void*);
+    Node_size *= 1024;
+    
+    //least common multiple
+    unsigned int lcm = (Node_size > pointer_size) ? Node_size : pointer_size;
+    do {
+        if (lcm % Node_size == 0 && lcm % pointer_size ==0) {
+            break;
+        }
+        else{
+            ++lcm;
+        }
+    } while (true);
+    
+    return lcm;
+}
 
 
 
