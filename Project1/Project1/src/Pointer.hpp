@@ -9,8 +9,10 @@
 #ifndef Pointer_hpp
 #define Pointer_hpp
 
-#include "Prefix_Trie.h"
+#include "Prefix_Trie.hpp"
 #include <iostream>
+#include <stdint.h> //including <cstdint> gives an error...?
+
 using namespace std;
 
 
