@@ -13,6 +13,11 @@
 #include <iostream>
 #include <stdint.h> //including <cstdint> gives an error...?
 
+#define NPAGECHARS 3
+#define NOFFSETCHARS 2
+
+
+//@TODO remove using namespace std?  It's typically considered bad practice
 using namespace std;
 
 
@@ -50,5 +55,11 @@ private:
     Page* addPage();
     unsigned int get_page_size(unsigned int Node_size);
 };
+
+struct pointer{
+  char page[NPAGECHARS];
+  char offset[NOFFSETCHARS];
+};
+
 
 #endif /* Pointer_hpp */
