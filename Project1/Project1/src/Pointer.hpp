@@ -9,7 +9,7 @@
 #ifndef Pointer_hpp
 #define Pointer_hpp
 
-#include "Prefix_Trie.hpp"
+#include "Prefix_Trie.h"
 #include <iostream>
 using namespace std;
 
@@ -25,10 +25,10 @@ public:
     
 private:
     void *memory;
-    unsigned int Node_size;
-    unsigned int max_count;
+    const size_t Node_size;
+    const unsigned int max_count;
     unsigned int current_offset;
-    uint64_t root_address;
+    const uint64_t root_address;
     
 };
 
@@ -43,8 +43,8 @@ public:
     void* reference(uint64_t vortual_pointer);
     
 private:
-    unsigned int Node_size;
-    unsigned int per_page_size;
+    const size_t Node_size;
+    const unsigned int per_page_size;
     uint64_t next_page_address;
     vector<Page*>pages;
     
