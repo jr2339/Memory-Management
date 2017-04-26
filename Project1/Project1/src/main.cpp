@@ -44,6 +44,7 @@ int main(int argc, const char * argv[]) {
         getline(ifs, sequence);
         
         record new_record = {header,sequence};
+        //need to figure out how to add DNA Sequence to our Trie
         //prefix->addWord(new_reord.sequence, sizeof(sequence));
         
     }
