@@ -145,6 +145,7 @@ unsigned int MemoryAllocator::get_total_page_size(unsigned int Node_size){
     //least common multiple
     unsigned int lcm = (Node_size > pointer_size) ? Node_size : pointer_size;
     do {
+        //lcm should be the times of node size and the pointer size
         if (lcm % Node_size == 0 && lcm % pointer_size ==0) {
             break;
         }
@@ -158,6 +159,23 @@ unsigned int MemoryAllocator::get_total_page_size(unsigned int Node_size){
 
 
 
+/******************************************************************************
+ ******************************************************************************
+ ******************************************************************************
+ ******************************************************************************
+ ******************************************************************************
+ ******************************************************************************/
+
+record get_record(ifstream ifs){
+    string new_header;
+    string new_sequence;
+    getline(ifs, new_header);
+    getline(ifs, new_sequence);
+    
+    record new_record = {new_header,new_sequence};
+    
+    return new_record;
+}
 
 
 

@@ -11,7 +11,13 @@
 
 #include "Prefix_Trie.hpp"
 #include <iostream>
+#include <fstream>
 using namespace std;
+
+
+#define NPAGECHARS 3
+#define NOFFSETCHARS 2
+
 
 
 class Page{
@@ -21,7 +27,7 @@ public:
     
     bool is_full();
     uint64_t get_next_address();
-    void *get_reference_of(unsigned int offset);
+    void *get_memory_of(unsigned int offset);
     
 private:
     void *memory;
@@ -40,7 +46,7 @@ public:
     ~MemoryAllocator();
     
     uint64_t allocate();
-    void* reference(uint64_t vortual_pointer);
+    void* memory(uint64_t virtual_pointer);
     
 private:
     unsigned int Node_size;
@@ -49,10 +55,21 @@ private:
     vector<Page*>pages;
     
     Page* addPage();
-    unsigned int get_page_size(unsigned int Node_size);
+    unsigned int get_total_page_size(unsigned int Node_size);
 };
 
 
+
+struct pointer{
+    char page[NPAGECHARS];
+    char offset[NOFFSETCHARS];
+};
+
+//store one header and one DNA sequence, we put each record to one Node and store it to the trie 
+struct record{
+    string header;
+    string sequence;
+};
 
 
 
