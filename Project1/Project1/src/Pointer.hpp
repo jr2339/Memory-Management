@@ -11,7 +11,17 @@
 
 #include "Prefix_Trie.hpp"
 #include <iostream>
+<<<<<<< HEAD
 #include <fstream>
+=======
+#include <stdint.h> //including <cstdint> gives an error...?
+
+#define NPAGECHARS 3
+#define NOFFSETCHARS 2
+
+
+//@TODO remove using namespace std?  It's typically considered bad practice
+>>>>>>> origin/master
 using namespace std;
 
 
@@ -22,20 +32,23 @@ using namespace std;
 
 class Page{
 public:
-    Page(uint64_t address, unsigned int max, unsigned int size);
+    Page(uint64_t address, unsigned int max, size_t size);
     ~Page();
-    
     bool is_full();
     uint64_t get_next_address();
+<<<<<<< HEAD
     void *get_memory_of(unsigned int offset);
     
+=======
+    void *get_reference_of(unsigned int offset);
+
+>>>>>>> origin/master
 private:
     void *memory;
-    unsigned int Node_size;
-    unsigned int max_count;
+    const size_t Node_size;
+    const unsigned int max_count;
     unsigned int current_offset;
-    uint64_t root_address;
-    
+    const uint64_t root_address;
 };
 
 
@@ -44,20 +57,25 @@ class MemoryAllocator{
 public:
     MemoryAllocator(int Node_size);
     ~MemoryAllocator();
-    
     uint64_t allocate();
+<<<<<<< HEAD
     void* memory(uint64_t virtual_pointer);
     
+=======
+    void* reference(uint64_t vortual_pointer);
+
+>>>>>>> origin/master
 private:
-    unsigned int Node_size;
-    unsigned int per_page_size;
+    const size_t Node_size;
+    const unsigned int per_page_size;
     uint64_t next_page_address;
     vector<Page*>pages;
-    
+
     Page* addPage();
     unsigned int get_total_page_size(unsigned int Node_size);
 };
 
+<<<<<<< HEAD
 
 
 struct pointer{
@@ -71,6 +89,12 @@ struct record{
     string sequence;
 };
 
+=======
+struct pointer{
+  char page[NPAGECHARS];
+  char offset[NOFFSETCHARS];
+};
+>>>>>>> origin/master
 
 
 #endif /* Pointer_hpp */

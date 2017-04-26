@@ -16,10 +16,9 @@
  4.Memory: Total memory for each page is the sum of all Nodes
  ************************************************************************/
 
-Page::Page(uint64_t address, unsigned int max, unsigned int size){
-    root_address = address;  //Each Page has a root ADDRESS
-    max_count = max;
-    Node_size = size;
+Page::Page(uint64_t address, unsigned int max, unsigned int size):
+  //uses an initializer list to set const class member variables
+    root_address(address), max_count(max), Node_size(size){
     current_offset = 0;
     memory = malloc(Node_size * max_count); //Space for Each Page
 }
@@ -44,7 +43,7 @@ bool Page::is_full(){
 }
 /*******************************************************************************
  Page::get_next_address()
- -If the page is not full, we using root_address 
+ -If the page is not full, we using root_address
  and offset to show the Node Address in the pase
  ******************************************************************************/
 
@@ -77,8 +76,9 @@ void *Page::get_memory_of(unsigned int offset) {
 After we figure out page construct, we will allocate memory
  ************************************************************************/
 
-MemoryAllocator::MemoryAllocator(int size){
-    Node_size = (unsigned int)size;
+MemoryAllocator::MemoryAllocator(int size):
+  // use an initializer list to set const class member variables
+  Node_size(size){
     per_page_size = get_total_page_size(Node_size)/Node_size;
     //init the 1st page address
     next_page_address = 1;
@@ -117,9 +117,8 @@ void* MemoryAllocator::memory(uint64_t virtual_pointer){
     }
     uint64_t page_id = ((uint64_t)(virtual_pointer-(uint64_t)next_page_address))/per_page_size;
     unsigned int struct_id = virtual_pointer % per_page_size;
-    
+
     return pages.at(page_id)->get_memory_of(struct_id);
- 
 }
 /*******************************************************************************
 addPage()
@@ -141,7 +140,7 @@ How many memory do we need
 unsigned int MemoryAllocator::get_total_page_size(unsigned int Node_size){
     unsigned int pointer_size = sizeof(void*);
     Node_size *= 1024;
-    
+
     //least common multiple
     unsigned int lcm = (Node_size > pointer_size) ? Node_size : pointer_size;
     do {
@@ -153,9 +152,10 @@ unsigned int MemoryAllocator::get_total_page_size(unsigned int Node_size){
             ++lcm;
         }
     } while (true);
-    
+
     return lcm;
 }
+<<<<<<< HEAD
 
 
 
@@ -196,3 +196,5 @@ record get_record(ifstream ifs){
 
 
 
+=======
+>>>>>>> origin/master
