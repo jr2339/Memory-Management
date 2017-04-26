@@ -15,12 +15,12 @@
 int main(int argc, const char * argv[]) {
     
     
-    if(argc < 3){
-        perror("We need 3 arguments");
+    if(argc < 2){
+        perror("We need 2 arguments");
         exit(1);//if the nunber is not 0, not access to error
     }
-    else if(argc > 3){
-        perror("Too many arguments");
+    else if(argc > 2){
+        perror("We only need 2 arguments");
         exit(1);//if the nunber is not 0, not access to error
     }
     
