@@ -155,9 +155,32 @@ unsigned int MemoryAllocator::get_total_page_size(unsigned int Node_size){
 
     return lcm;
 }
-<<<<<<< HEAD
 
 
+/*******************************************************************************
+                             smalloc()
+    -small memory allocate
+    -Allocates space for a pointer within the memory layer and assigns the
+       proper page / offset to that pointer.
+*******************************************************************************/
+//@@TODO
+/*
+void MemoryAllocator::smalloc(&pointer ptr){
+
+}
+*/
+
+/*******************************************************************************
+                             charsToUInt64()
+    -converts char array to uint64_t
+*******************************************************************************/
+uint64_t charsToUint64(unsigned char *chars, char numChars){
+  uint64_t uintVal = 0;
+  for(int i = 0; i < numChars; i++){
+    uintVal = uintVal | (chars[i] << ((numChars-(i+1))*8));
+  }
+  return uintVal;
+}
 
 /******************************************************************************
  ******************************************************************************
@@ -171,30 +194,8 @@ record get_record(ifstream ifs){
     string new_sequence;
     getline(ifs, new_header);
     getline(ifs, new_sequence);
-    
+
     record new_record = {new_header,new_sequence};
-    
+
     return new_record;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> origin/master
