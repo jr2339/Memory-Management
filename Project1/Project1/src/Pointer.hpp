@@ -36,6 +36,7 @@ public:
     ~Page();
     bool is_full();
     uint64_t get_next_address();
+  uint64_t getRootAddress();
     void *get_memory_of(unsigned int offset);
     void *get_reference_of(unsigned int offset);
 

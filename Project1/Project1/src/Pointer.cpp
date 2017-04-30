@@ -54,6 +54,16 @@ uint64_t Page::get_next_address(){
     }
     return current_offset++;
 }
+
+
+/*******************************************************************************
+                                getRootAddress()
+   - Getter for root_address (page index)
+ ******************************************************************************/
+uint64_t Page::getRootAddress(){
+  return root_address;
+}
+
 /*******************************************************************************
  Page::get_memory_of(unsigned int offset)
  -We need to decide the node locate in which page
@@ -107,6 +117,7 @@ uint64_t MemoryAllocator::allocate(){
     return p->get_next_address();
 }
 
+
 /*******************************************************************************
  memory()
  get memory
@@ -120,6 +131,8 @@ void* MemoryAllocator::memory(uint64_t virtual_pointer){
 
     return pages.at(page_id)->get_memory_of(struct_id);
 }
+
+
 /*******************************************************************************
 addPage()
 Used for page is not enough
@@ -129,7 +142,6 @@ Page* MemoryAllocator::addPage(){
     Page* p = new Page(root_address,per_page_size,Node_size);
     pages.push_back(p);
     return p;
-    
 }
 
 /*******************************************************************************
@@ -167,7 +179,7 @@ void MemoryAllocator::smalloc(pointer *ptr){
   if (p->is_full()) {
     p = addPage();
   }
-  uint64ToChars(pages.back().getRootAddress(), (char)NPAGECHARS, (unsigned char*)(&(ptr->page)));
+  uint64ToChars(pages.back()->getRootAddress(), (char)NPAGECHARS, (unsigned char*)(&(ptr->page)));
   uint64ToChars(p->get_next_address(), (char)NOFFSETCHARS, (unsigned char*)(&(ptr->offset)));
 }
 
