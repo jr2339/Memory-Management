@@ -88,8 +88,7 @@ After we figure out page construct, we will allocate memory
 
 MemoryAllocator::MemoryAllocator(int size):
   // use an initializer list to set const class member variables
-    Node_size(size){
-    per_page_size = NOFFSETCHARS * Node_size;
+  Node_size(size),per_page_size(NOFFSETCHARS * Node_size){
     //init the 1st page address
     next_page_address = 1;
     addPage();
