@@ -171,7 +171,7 @@ void MemoryAllocator::smalloc(&pointer ptr){
 */
 
 /*******************************************************************************
-                             charsToUInt64()
+                             charsToUint64()
     -converts char array to uint64_t
 *******************************************************************************/
 uint64_t charsToUint64(unsigned char *chars, char numChars){
@@ -180,6 +180,22 @@ uint64_t charsToUint64(unsigned char *chars, char numChars){
     uintVal = uintVal | (chars[i] << ((numChars-(i+1))*8));
   }
   return uintVal;
+}
+
+
+/*******************************************************************************
+                             uint64ToChars()
+    - Converts uint64 to an array of characters.
+    - Outputs directly into outArray.
+*******************************************************************************/
+void MemoryAllocator::uint64ToChars(uint64_t intVal, char numChars, unsigned char *outArray){
+  // Cast int to char * so that we can iterate over bytes
+  unsigned char *newVal = (unsigned char*) &intVal;
+  // We have to copy in reverse order on little endian machines, not sure how
+  //   this will be affected on big-endian.  May be problemeatic.
+  for (int i = 0; i < numChars; i++){
+    memset((&outArray[i]), newVal[numChars - (i+1)],1);
+  }
 }
 
 /******************************************************************************
