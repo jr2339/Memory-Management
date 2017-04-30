@@ -6,7 +6,7 @@ MemoryAllocator<Node> *memLayer;
                                      Node()
     -Default constructor.  Initializes a node with no children.
 
- ******************************************************************************/
+******************************************************************************/
 
 Node::Node(){
   A = (pointer) {};
@@ -20,7 +20,7 @@ Node::Node(){
                                      ~Node()
     -Default deconstructor.  Deletes each child node.
 
- ******************************************************************************/
+******************************************************************************/
 
 //@@TODO
 Node::~Node(){
@@ -31,21 +31,21 @@ Node::~Node(){
                                      deepCopy()
     -Deep copies a node including its children.
 
- ******************************************************************************/
+******************************************************************************/
 
 /*
 //@@TODO
 Node *Node::deepCopy(){
-  if (!this){
-    return NULL;
-  }
-  Node *newNode = new Node();
-  newNode->setTerminal(this->terminal);
-  newNode->A = this->A->deepCopy();
-  newNode->C = this->C->deepCopy();
-  newNode->T = this->T->deepCopy();
-  newNode->G = this->G->deepCopy();
-  return newNode;
+if (!this){
+return NULL;
+}
+Node *newNode = new Node();
+newNode->setTerminal(this->terminal);
+newNode->A = this->A->deepCopy();
+newNode->C = this->C->deepCopy();
+newNode->T = this->T->deepCopy();
+newNode->G = this->G->deepCopy();
+return newNode;
 }
 */
 
@@ -55,7 +55,7 @@ Node *Node::deepCopy(){
     -Returns the child specified by the parameter.  Currently only works for
        A C G T
 
- ******************************************************************************/
+******************************************************************************/
 
 pointer Node::getChild(char child){
   switch(child){
@@ -76,43 +76,43 @@ pointer Node::getChild(char child){
     -Adds a child node specified by A C G T.  If the node already exists, just
        return it.
 
- ******************************************************************************/
+******************************************************************************/
 
 pointer Node::setChild(char child, int *size){
   uint64_t page = 0;
   switch(child){
   case 'A':
     if ((page = charsToUint64(getChild('A').page,(char)NPAGECHARS)) == 0){
-       A = memLayer->smalloc();
-       uint64_t offset = charsToUint64(A.offset, (char)NOFFSETCHARS);
-       (memLayer->getPages().at(page))->set(offset, Node());
-       (*size)++;
+      A = memLayer->smalloc();
+      uint64_t offset = charsToUint64(A.offset, (char)NOFFSETCHARS);
+      (memLayer->getPages().at(page))->set(offset, Node());
+      (*size)++;
     }
     return A;
   case 'C':
     if ((page = charsToUint64(getChild('C').page,(char)NPAGECHARS)) == 0){
-       C = memLayer->smalloc();
-       uint64_t offset = charsToUint64(C.offset, (char)NOFFSETCHARS);
-       (memLayer->getPages().at(page))->set(offset, Node());
-       (*size)++;
+      C = memLayer->smalloc();
+      uint64_t offset = charsToUint64(C.offset, (char)NOFFSETCHARS);
+      (memLayer->getPages().at(page))->set(offset, Node());
+      (*size)++;
     }
     return C;
   case 'G':
 
     if ((page = charsToUint64(getChild('G').page,(char)NPAGECHARS)) == 0){
-       G = memLayer->smalloc();
-       uint64_t offset = charsToUint64(G.offset, (char)NOFFSETCHARS);
-       (memLayer->getPages().at(page))->set(offset, Node());
-       (*size)++;
+      G = memLayer->smalloc();
+      uint64_t offset = charsToUint64(G.offset, (char)NOFFSETCHARS);
+      (memLayer->getPages().at(page))->set(offset, Node());
+      (*size)++;
     }
     return G;
   case 'T':
 
     if ((page = charsToUint64(getChild('T').page,(char)NPAGECHARS)) == 0){
-       T = memLayer->smalloc();
-       uint64_t offset = charsToUint64(T.offset, (char)NOFFSETCHARS);
-       (memLayer->getPages().at(page))->set(offset, Node());
-       (*size)++;
+      T = memLayer->smalloc();
+      uint64_t offset = charsToUint64(T.offset, (char)NOFFSETCHARS);
+      (memLayer->getPages().at(page))->set(offset, Node());
+      (*size)++;
     }
     return T;
   }
@@ -123,7 +123,7 @@ pointer Node::setChild(char child, int *size){
                                      isTerminal()
     -Getter for "terminal"
 
- ******************************************************************************/
+******************************************************************************/
 
 bool Node::isTerminal(){
   return terminal;
@@ -135,7 +135,7 @@ bool Node::isTerminal(){
     -Setter for terminal. Indicates that a node is ther terminal point for some
        word.
 
- ******************************************************************************/
+******************************************************************************/
 
 void Node::setTerminal(bool val){
   terminal = val;
@@ -146,7 +146,7 @@ void Node::setTerminal(bool val){
                                      Trie()
     -Default constructor.  Initializes an empty trie (just a root).
 
- ******************************************************************************/
+******************************************************************************/
 
 Trie::Trie(){
   size = 0;
@@ -164,37 +164,37 @@ Trie::Trie(){
     -Construct a trie from a set of sequences.  For now, all sequences must be 
        equal in length.
 
- ******************************************************************************/
+******************************************************************************/
 
-//@@TODO
-/*
-Trie::Trie(MemoryAllocator *mem, char **sequences, int nSeq, int seqLength){
+Trie::Trie(char **sequences, int nSeq, int seqLength){
   size = 0;
   root = (pointer){};
   pointer current = root;
+  Node *cNode;
   for(int i = 0; i<nSeq; i++){
     for(int j = 0; j < seqLength ; j++){
-      current = current->setChild(sequences[i][j],&size);
+      cNode = (memLayer->getPages()).at(charsToUint64(current.page, NPAGECHARS))->
+        get_memory_of(charsToUint64(current.offset, NOFFSETCHARS));
+      current = cNode->setChild(sequences[i][j],&size);
     }
-    current->setTerminal(1);
+    cNode->setTerminal(1);
     current = root;
   }
 }
-*/
 
 /*******************************************************************************
 
                                      Trie()
     -Copy constructor.  Deep copies the trie that is passed as a parameter.
 
- ******************************************************************************/
+******************************************************************************/
 
 //@@TODO
 /*
-Trie::Trie(Trie *seed){
+  Trie::Trie(Trie *seed){
   size = seed->size;
   root = seed->root->deepCopy();
-}
+  }
 */
 
 /*******************************************************************************
@@ -202,12 +202,12 @@ Trie::Trie(Trie *seed){
                                   ~Trie()
     -Generic deconstructor.  Relies on the underlying node deconstructor.
 
- ******************************************************************************/
+******************************************************************************/
 //@@TODO
 /*
-Trie::~Trie(){
+  Trie::~Trie(){
   delete(root);
-}
+  }
 */
 
 /*******************************************************************************
@@ -215,42 +215,43 @@ Trie::~Trie(){
                                   addWord()
     -Add a word to the trie
 
- ******************************************************************************/
+******************************************************************************/
 
 //@@TODO
-/*
 void Trie::addWord(char *word, int wordLength){
   pointer current = root;
+
+  Node *cNode;
+
   for(int i = 0; i <wordLength; i++){
-    current = current->setChild(word[i],&size);
+    cNode = (memLayer->getPages()).at(charsToUint64(current.page, NPAGECHARS))->
+      get_memory_of(charsToUint64(current.offset, NOFFSETCHARS));
+    current = cNode->setChild(word[i],&size);
   }
-  current->setTerminal(1);
+  cNode->setTerminal(1);
 }
-*/
 
 /*******************************************************************************
 
                                   searchWord()
     -Check if a word is in the Trie
 
- ******************************************************************************/
+******************************************************************************/
 
 //@@TODO
-/*
-bool Trie::searchWord(char *word, int wordLength){
+  bool Trie::searchWord(char *word, int wordLength){
   Node *current = root;
   for(int i = 0; i < wordLength; i++){
-    // If the pointer is null, we can't go any farther, so the sequence
-    //   is not in the tree.  Just return 0 / False.
-    if (!(current = current->getChild(word[i]))){
-      return 0;
-    }
+  // If the pointer is null, we can't go any farther, so the sequence
+  //   is not in the tree.  Just return 0 / False.
+  if (!(current = current->getChild(word[i]))){
+  return 0;
+  }
   }
   // If we made it all the way to the end of our target sequence, check if
   //   the node is terminal for some word.
   return current->isTerminal();
-}
-*/
+  }
 
 
 
@@ -260,18 +261,18 @@ bool Trie::searchWord(char *word, int wordLength){
     -Traverse an entire sequence and detect hits.
     -Returns the indices of the beginning of each hit.
 
- ******************************************************************************/
+******************************************************************************/
 //@@TODO
 /*
-std::vector<int> Trie::traverse(char *sequence, int seqLength, int wordSize){
+  std::vector<int> Trie::traverse(char *sequence, int seqLength, int wordSize){
   std::vector<int> indexVector;
   for(int i = 0; i<seqLength; i++){
-    if(searchWord(&sequence[i], wordSize)){
-      indexVector.insert(indexVector.end(),i);
-    }
+  if(searchWord(&sequence[i], wordSize)){
+  indexVector.insert(indexVector.end(),i);
+  }
   }
   return indexVector;
-}
+  }
 */
 
 
@@ -280,7 +281,7 @@ std::vector<int> Trie::traverse(char *sequence, int seqLength, int wordSize){
                                   getSize()
     -Getter for Trie size.
 
- ******************************************************************************/
+******************************************************************************/
 
 int Trie::getSize(){
   return this->size;
