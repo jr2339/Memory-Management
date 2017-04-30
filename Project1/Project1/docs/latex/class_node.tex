@@ -3,20 +3,20 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
+\hyperlink{class_node_ad7a34779cad45d997bfd6d3d8043c75f}{Node} ()
+\item 
+\hyperlink{class_node_aa0840c3cb5c7159be6d992adecd2097c}{$\sim$\+Node} ()
+\item 
 \mbox{\Hypertarget{class_node_a50cc8a8f7579baecb23595338140ef87}\label{class_node_a50cc8a8f7579baecb23595338140ef87}} 
 \hyperlink{structpointer}{pointer} {\bfseries deep\+Copy} ()
 \item 
-\mbox{\Hypertarget{class_node_a7d2c9441ae9f243e06d9f081bada8bad}\label{class_node_a7d2c9441ae9f243e06d9f081bada8bad}} 
-\hyperlink{structpointer}{pointer} {\bfseries get\+Child} (char)
+\hyperlink{structpointer}{pointer} \hyperlink{class_node_a7d2c9441ae9f243e06d9f081bada8bad}{get\+Child} (char)
 \item 
-\mbox{\Hypertarget{class_node_aeb419eb3d59dba25f792546a226643bc}\label{class_node_aeb419eb3d59dba25f792546a226643bc}} 
-\hyperlink{structpointer}{pointer} {\bfseries set\+Child} (char, int $\ast$)
+\hyperlink{structpointer}{pointer} \hyperlink{class_node_aeb419eb3d59dba25f792546a226643bc}{set\+Child} (char, int $\ast$)
 \item 
-\mbox{\Hypertarget{class_node_a8cdae92d062555a32b908bfeae6149da}\label{class_node_a8cdae92d062555a32b908bfeae6149da}} 
-bool {\bfseries is\+Terminal} ()
+bool \hyperlink{class_node_a8cdae92d062555a32b908bfeae6149da}{is\+Terminal} ()
 \item 
-\mbox{\Hypertarget{class_node_a6b9cb87985f29025ad3a2905f61e94c3}\label{class_node_a6b9cb87985f29025ad3a2905f61e94c3}} 
-void {\bfseries set\+Terminal} (bool)
+void \hyperlink{class_node_a6b9cb87985f29025ad3a2905f61e94c3}{set\+Terminal} (bool)
 \item 
 \mbox{\Hypertarget{class_node_a3d977b8e9de6d22bec1ab0e9962a2c41}\label{class_node_a3d977b8e9de6d22bec1ab0e9962a2c41}} 
 \hyperlink{class_node}{Node} $\ast$ {\bfseries deep\+Copy} ()
@@ -33,6 +33,74 @@ bool {\bfseries is\+Terminal} ()
 \mbox{\Hypertarget{class_node_a6b9cb87985f29025ad3a2905f61e94c3}\label{class_node_a6b9cb87985f29025ad3a2905f61e94c3}} 
 void {\bfseries set\+Terminal} (bool)
 \end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_node_ad7a34779cad45d997bfd6d3d8043c75f}\label{class_node_ad7a34779cad45d997bfd6d3d8043c75f}} 
+\index{Node@{Node}!Node@{Node}}
+\index{Node@{Node}!Node@{Node}}
+\subsubsection{\texorpdfstring{Node()}{Node()}}
+{\footnotesize\ttfamily Node\+::\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\hyperlink{class_node_ad7a34779cad45d997bfd6d3d8043c75f}{Node()} -\/\+Default constructor. Initializes a node with no children. \mbox{\Hypertarget{class_node_aa0840c3cb5c7159be6d992adecd2097c}\label{class_node_aa0840c3cb5c7159be6d992adecd2097c}} 
+\index{Node@{Node}!````~Node@{$\sim$\+Node}}
+\index{````~Node@{$\sim$\+Node}!Node@{Node}}
+\subsubsection{\texorpdfstring{$\sim$\+Node()}{~Node()}}
+{\footnotesize\ttfamily Node\+::$\sim$\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\hyperlink{class_node_aa0840c3cb5c7159be6d992adecd2097c}{$\sim$\+Node()} -\/\+Default deconstructor. Deletes each child node. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_node_a7d2c9441ae9f243e06d9f081bada8bad}\label{class_node_a7d2c9441ae9f243e06d9f081bada8bad}} 
+\index{Node@{Node}!get\+Child@{get\+Child}}
+\index{get\+Child@{get\+Child}!Node@{Node}}
+\subsubsection{\texorpdfstring{get\+Child()}{getChild()}}
+{\footnotesize\ttfamily \hyperlink{class_node}{Node} $\ast$ Node\+::get\+Child (\begin{DoxyParamCaption}\item[{char}]{child }\end{DoxyParamCaption})}
+
+\hyperlink{class_node_a7d2c9441ae9f243e06d9f081bada8bad}{get\+Child()} -\/\+Returns the child specified by the parameter. Currently only works for A C G T 
+\begin{DoxyParams}{Parameters}
+{\em child} & The character indicator \mbox{[}A$\vert$\+C$\vert$\+G$\vert$T\mbox{]} of the child we want to get. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The pointer of the child node or a null pointer if child doesn\textquotesingle{}t exist. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_node_a8cdae92d062555a32b908bfeae6149da}\label{class_node_a8cdae92d062555a32b908bfeae6149da}} 
+\index{Node@{Node}!is\+Terminal@{is\+Terminal}}
+\index{is\+Terminal@{is\+Terminal}!Node@{Node}}
+\subsubsection{\texorpdfstring{is\+Terminal()}{isTerminal()}}
+{\footnotesize\ttfamily bool Node\+::is\+Terminal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\hyperlink{class_node_a8cdae92d062555a32b908bfeae6149da}{is\+Terminal()} -\/\+Getter for \char`\"{}terminal\char`\"{} \begin{DoxyReturn}{Returns}
+True if the node is terminal, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_node_aeb419eb3d59dba25f792546a226643bc}\label{class_node_aeb419eb3d59dba25f792546a226643bc}} 
+\index{Node@{Node}!set\+Child@{set\+Child}}
+\index{set\+Child@{set\+Child}!Node@{Node}}
+\subsubsection{\texorpdfstring{set\+Child()}{setChild()}}
+{\footnotesize\ttfamily \hyperlink{class_node}{Node} $\ast$ Node\+::set\+Child (\begin{DoxyParamCaption}\item[{char}]{child,  }\item[{int $\ast$}]{size }\end{DoxyParamCaption})}
+
+\hyperlink{class_node_aeb419eb3d59dba25f792546a226643bc}{set\+Child()} -\/\+Adds a child node specified by A C G T. If the node already exists, just return it. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em child} & The child we wish to set \\
+\hline
+\mbox{\tt out}  & {\em size} & A pointer to the size of the current trie. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the new node or existing child. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_node_a6b9cb87985f29025ad3a2905f61e94c3}\label{class_node_a6b9cb87985f29025ad3a2905f61e94c3}} 
+\index{Node@{Node}!set\+Terminal@{set\+Terminal}}
+\index{set\+Terminal@{set\+Terminal}!Node@{Node}}
+\subsubsection{\texorpdfstring{set\+Terminal()}{setTerminal()}}
+{\footnotesize\ttfamily void Node\+::set\+Terminal (\begin{DoxyParamCaption}\item[{bool}]{val }\end{DoxyParamCaption})}
+
+\hyperlink{class_node_a6b9cb87985f29025ad3a2905f61e94c3}{set\+Terminal()} -\/\+Setter for terminal. Indicates that a node is ther terminal point for some word. 
+\begin{DoxyParams}{Parameters}
+{\em val} & The new value for terminal. \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

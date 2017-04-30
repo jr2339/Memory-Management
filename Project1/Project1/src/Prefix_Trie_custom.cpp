@@ -1,12 +1,12 @@
 #include "../includes/Prefix_Trie_custom.hpp"
 
 MemoryAllocator<Node> *memLayer;
-/*******************************************************************************
-
-                                     Node()
-    -Default constructor.  Initializes a node with no children.
-
-******************************************************************************/
+/***************************************************************************//**
+ *
+ *                                    Node()
+ *   -Default constructor.  Initializes a node with no children.
+ *
+ ******************************************************************************/
 
 Node::Node(){
   A = (pointer) {.page = {255,255,255}, .offset = {255,255}};
@@ -15,17 +15,21 @@ Node::Node(){
   T = (pointer) {.page = {255,255,255}, .offset = {255,255}};
   terminal = 0;
 }
-/*******************************************************************************
 
-                                     ~Node()
-    -Default deconstructor.  Deletes each child node.
 
-******************************************************************************/
 
+/***************************************************************************//**
+ *
+ *                                    ~Node()
+ *    -Default deconstructor.  Deletes each child node.
+ *
+ ******************************************************************************/
 //@@TODO
 Node::~Node(){
   //
 }
+
+
 /*******************************************************************************
 
                                      deepCopy()
@@ -49,13 +53,15 @@ return newNode;
 }
 */
 
-/*******************************************************************************
-
-                                     getChild()
-    -Returns the child specified by the parameter.  Currently only works for
-       A C G T
-
-******************************************************************************/
+/***************************************************************************//**
+ *
+ *                                    getChild()
+ *   -Returns the child specified by the parameter.  Currently only works for
+ *      A C G T
+ *   @param child The character indicator [A|C|G|T] of the child we want to get.
+ *   @return The pointer of the child node or a null pointer if child doesn't
+ *      exist.
+ ******************************************************************************/
 
 pointer Node::getChild(char child){
   switch(child){
@@ -70,13 +76,16 @@ pointer Node::getChild(char child){
   }
   return (pointer){.page={255,255,255}, .offset={255,255}};
 }
-/*******************************************************************************
 
-                                     setChild()
-    -Adds a child node specified by A C G T.  If the node already exists, just
-       return it.
-
-******************************************************************************/
+/***************************************************************************//**
+ *
+ *                                    setChild()
+ *   -Adds a child node specified by A C G T.  If the node already exists, just
+ *      return it.
+ *   @param child The child we wish to set
+ *   @param[out] size A pointer to the size of the current trie.
+ *   @return A pointer to the new node or existing child.
+ ******************************************************************************/
 
 pointer Node::setChild(char child, int *size){
   uint64_t page = 0;
@@ -124,35 +133,35 @@ pointer Node::setChild(char child, int *size){
   }
   return (pointer){.page = {255,255,255},.offset={255,255}};
 }
-/*******************************************************************************
-
-                                     isTerminal()
-    -Getter for "terminal"
-
-******************************************************************************/
+/***************************************************************************//**
+ *
+ *                                    isTerminal()
+ *   -Getter for "terminal"
+ *   @return True if the node is terminal, false otherwise.
+ ******************************************************************************/
 
 bool Node::isTerminal(){
   return terminal;
 }
 
-/*******************************************************************************
-
-                                     setTerminal()
-    -Setter for terminal. Indicates that a node is ther terminal point for some
-       word.
-
-******************************************************************************/
+/***************************************************************************//**
+ *
+ *                                     setTerminal()
+ *   -Setter for terminal. Indicates that a node is ther terminal point for some
+ *      word.
+ *   @param val The new value for terminal.
+ ******************************************************************************/
 
 void Node::setTerminal(bool val){
   terminal = val;
 }
 
-/*******************************************************************************
-
-                                     Trie()
-    -Default constructor.  Initializes an empty trie (just a root).
-
-******************************************************************************/
+/***************************************************************************//**
+ *
+ *                                    Trie()
+ *   -Default constructor.  Initializes an empty trie (just a root).
+ *
+ ******************************************************************************/
 
 Trie::Trie(){
   size = 0;
@@ -164,13 +173,16 @@ Trie::Trie(){
 
 
 
-/*******************************************************************************
-
-                                     Trie()
-    -Construct a trie from a set of sequences.  For now, all sequences must be 
-       equal in length.
-
-******************************************************************************/
+/***************************************************************************//**
+ *
+ *                                    Trie()
+ *   -Construct a trie from a set of sequences.  For now, all sequences must be
+ *      equal in length.
+ *   @param sequences The array of sequences from which we will construct our
+ *      trie.
+ *   @param nSeq The number of sequences.
+ *   @param seqLength The length of each sequence.
+ ******************************************************************************/
 
 Trie::Trie(char **sequences, int nSeq, int seqLength){
   size = 0;
@@ -216,12 +228,13 @@ Trie::Trie(char **sequences, int nSeq, int seqLength){
   }
 */
 
-/*******************************************************************************
-
-                                  addWord()
-    -Add a word to the trie
-
-******************************************************************************/
+/***************************************************************************//**
+ *
+ *                                 addWord()
+ *   -Add a word to the trie
+ *   @param word The word that we want to add to our trie.
+ *   @param wordLength The length of the word that we want to add.
+ ******************************************************************************/
 
 void Trie::addWord(char *word, int wordLength){
   pointer current = root;
@@ -236,12 +249,14 @@ void Trie::addWord(char *word, int wordLength){
   cNode->setTerminal(1);
 }
 
-/*******************************************************************************
-
-                                  searchWord()
-    -Check if a word is in the Trie
-
-******************************************************************************/
+/***************************************************************************//**
+ *
+ *                                 searchWord()
+ *   -Check if a word is in the Trie
+ *   @param word The word for which we want to search.
+ *   @param wordLength The length of the word for which we wish to search.
+ *   @return True if the word was found, false if it was not.
+ ******************************************************************************/
 
 bool Trie::searchWord(char *word, int wordLength){
   pointer current = root;
@@ -284,12 +299,12 @@ bool Trie::searchWord(char *word, int wordLength){
 */
 
 
-/*******************************************************************************
-
-                                  getSize()
-    -Getter for Trie size.
-
-******************************************************************************/
+/***************************************************************************//**
+ *
+ *                                 getSize()
+ *   -Getter for Trie size.
+ *   @return The size of the trie (in number of nodes).
+ ******************************************************************************/
 
 int Trie::getSize(){
   return this->size;

@@ -3,23 +3,21 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_trie_a5168ff08df4d3dd0255c24167bfdc563}\label{class_trie_a5168ff08df4d3dd0255c24167bfdc563}} 
-{\bfseries Trie} (char $\ast$$\ast$, int, int)
+\hyperlink{class_trie_a6af57e9f25d0d0a2d59eea5a4a802908}{Trie} ()
+\item 
+\hyperlink{class_trie_a5168ff08df4d3dd0255c24167bfdc563}{Trie} (char $\ast$$\ast$, int, int)
 \item 
 \mbox{\Hypertarget{class_trie_a7d757164056d7e42833fa06807b4b957}\label{class_trie_a7d757164056d7e42833fa06807b4b957}} 
 {\bfseries Trie} (\hyperlink{class_trie}{Trie} $\ast$)
 \item 
-\mbox{\Hypertarget{class_trie_ad793716c7d7e99240d6b3fa5fd1a4ff8}\label{class_trie_ad793716c7d7e99240d6b3fa5fd1a4ff8}} 
-void {\bfseries add\+Word} (char $\ast$, int)
+void \hyperlink{class_trie_ad793716c7d7e99240d6b3fa5fd1a4ff8}{add\+Word} (char $\ast$, int)
 \item 
-\mbox{\Hypertarget{class_trie_a3760a51720b288a6628360008977de6f}\label{class_trie_a3760a51720b288a6628360008977de6f}} 
-bool {\bfseries search\+Word} (char $\ast$, int)
+bool \hyperlink{class_trie_a3760a51720b288a6628360008977de6f}{search\+Word} (char $\ast$, int)
 \item 
 \mbox{\Hypertarget{class_trie_ab69ae6a49b6346bf0cdc2589e388a179}\label{class_trie_ab69ae6a49b6346bf0cdc2589e388a179}} 
 std\+::vector$<$ int $>$ {\bfseries traverse} (char $\ast$, int, int)
 \item 
-\mbox{\Hypertarget{class_trie_aaf9bd72bfad7fa2ecfe47b7a69c05c51}\label{class_trie_aaf9bd72bfad7fa2ecfe47b7a69c05c51}} 
-int {\bfseries get\+Size} ()
+int \hyperlink{class_trie_aaf9bd72bfad7fa2ecfe47b7a69c05c51}{get\+Size} ()
 \item 
 \mbox{\Hypertarget{class_trie_a5168ff08df4d3dd0255c24167bfdc563}\label{class_trie_a5168ff08df4d3dd0255c24167bfdc563}} 
 {\bfseries Trie} (char $\ast$$\ast$, int, int)
@@ -39,6 +37,71 @@ std\+::vector$<$ int $>$ {\bfseries traverse} (char $\ast$, int, int)
 \mbox{\Hypertarget{class_trie_aaf9bd72bfad7fa2ecfe47b7a69c05c51}\label{class_trie_aaf9bd72bfad7fa2ecfe47b7a69c05c51}} 
 int {\bfseries get\+Size} ()
 \end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_trie_a6af57e9f25d0d0a2d59eea5a4a802908}\label{class_trie_a6af57e9f25d0d0a2d59eea5a4a802908}} 
+\index{Trie@{Trie}!Trie@{Trie}}
+\index{Trie@{Trie}!Trie@{Trie}}
+\subsubsection{\texorpdfstring{Trie()}{Trie()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Trie\+::\+Trie (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\hyperlink{class_trie_a6af57e9f25d0d0a2d59eea5a4a802908}{Trie()} -\/\+Default constructor. Initializes an empty trie (just a root). \mbox{\Hypertarget{class_trie_a5168ff08df4d3dd0255c24167bfdc563}\label{class_trie_a5168ff08df4d3dd0255c24167bfdc563}} 
+\index{Trie@{Trie}!Trie@{Trie}}
+\index{Trie@{Trie}!Trie@{Trie}}
+\subsubsection{\texorpdfstring{Trie()}{Trie()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Trie\+::\+Trie (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{sequences,  }\item[{int}]{n\+Seq,  }\item[{int}]{seq\+Length }\end{DoxyParamCaption})}
+
+\hyperlink{class_trie_a6af57e9f25d0d0a2d59eea5a4a802908}{Trie()} -\/\+Construct a trie from a set of sequences. For now, all sequences must be equal in length. 
+\begin{DoxyParams}{Parameters}
+{\em sequences} & The array of sequences from which we will construct our trie. \\
+\hline
+{\em n\+Seq} & The number of sequences. \\
+\hline
+{\em seq\+Length} & The length of each sequence. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_trie_ad793716c7d7e99240d6b3fa5fd1a4ff8}\label{class_trie_ad793716c7d7e99240d6b3fa5fd1a4ff8}} 
+\index{Trie@{Trie}!add\+Word@{add\+Word}}
+\index{add\+Word@{add\+Word}!Trie@{Trie}}
+\subsubsection{\texorpdfstring{add\+Word()}{addWord()}}
+{\footnotesize\ttfamily void Trie\+::add\+Word (\begin{DoxyParamCaption}\item[{char $\ast$}]{word,  }\item[{int}]{word\+Length }\end{DoxyParamCaption})}
+
+\hyperlink{class_trie_ad793716c7d7e99240d6b3fa5fd1a4ff8}{add\+Word()} -\/\+Add a word to the trie 
+\begin{DoxyParams}{Parameters}
+{\em word} & The word that we want to add to our trie. \\
+\hline
+{\em word\+Length} & The length of the word that we want to add. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_trie_aaf9bd72bfad7fa2ecfe47b7a69c05c51}\label{class_trie_aaf9bd72bfad7fa2ecfe47b7a69c05c51}} 
+\index{Trie@{Trie}!get\+Size@{get\+Size}}
+\index{get\+Size@{get\+Size}!Trie@{Trie}}
+\subsubsection{\texorpdfstring{get\+Size()}{getSize()}}
+{\footnotesize\ttfamily int Trie\+::get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\hyperlink{class_trie_aaf9bd72bfad7fa2ecfe47b7a69c05c51}{get\+Size()} -\/\+Getter for \hyperlink{class_trie}{Trie} size. \begin{DoxyReturn}{Returns}
+The size of the trie (in number of nodes). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_trie_a3760a51720b288a6628360008977de6f}\label{class_trie_a3760a51720b288a6628360008977de6f}} 
+\index{Trie@{Trie}!search\+Word@{search\+Word}}
+\index{search\+Word@{search\+Word}!Trie@{Trie}}
+\subsubsection{\texorpdfstring{search\+Word()}{searchWord()}}
+{\footnotesize\ttfamily bool Trie\+::search\+Word (\begin{DoxyParamCaption}\item[{char $\ast$}]{word,  }\item[{int}]{word\+Length }\end{DoxyParamCaption})}
+
+\hyperlink{class_trie_a3760a51720b288a6628360008977de6f}{search\+Word()} -\/\+Check if a word is in the \hyperlink{class_trie}{Trie} 
+\begin{DoxyParams}{Parameters}
+{\em word} & The word for which we want to search. \\
+\hline
+{\em word\+Length} & The length of the word for which we wish to search. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the word was found, false if it was not. 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

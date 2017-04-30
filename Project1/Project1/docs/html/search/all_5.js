@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['page',['Page',['../class_page.html',1,'Page&lt; T &gt;'],['../class_page.html#ac9e22e2694dfa6a7dc4f80166c0217c5',1,'Page::Page()']]],
-  ['pointer',['pointer',['../structpointer.html',1,'']]]
+  ['node',['Node',['../class_node.html',1,'Node'],['../class_node.html#ad7a34779cad45d997bfd6d3d8043c75f',1,'Node::Node()']]]
 ];

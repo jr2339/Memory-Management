@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['custom_20memory_20management',['Custom Memory Management',['../md_dev_tasks.html',1,'']]]
+  ['addword',['addWord',['../class_trie.html#ad793716c7d7e99240d6b3fa5fd1a4ff8',1,'Trie']]]
 ];

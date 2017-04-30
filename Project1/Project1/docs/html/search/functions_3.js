@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['page',['Page',['../class_page.html#ac9e22e2694dfa6a7dc4f80166c0217c5',1,'Page']]]
+  ['memoryallocator',['MemoryAllocator',['../class_memory_allocator.html#a9c7ca60e8881012d0311c98689359c91',1,'MemoryAllocator']]]
 ];
