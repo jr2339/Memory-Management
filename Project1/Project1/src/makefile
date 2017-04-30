@@ -7,4 +7,4 @@ BDIR=../bin/
 all: pointer
 
 pointer: pointer.cpp
-	$(CC) -O $(LDIR) $^ $(CFLAGS) -I$(IDIR) $(LFLAGS)
+	$(CC) -c -o$(LDIR)$@.o $^ $(CFLAGS) -I$(IDIR) $(LFLAGS)

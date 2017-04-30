@@ -98,7 +98,7 @@ MemoryAllocator::MemoryAllocator(int size):
  -Default deconstructor.  Deletes All Pages in allocated Memory.
  ******************************************************************************/
 MemoryAllocator::~MemoryAllocator(){
-  while(pages.size()){
+  while(uint64_t i = pages.size()){
     delete(pages[i]);
   }
   pages.clear();
