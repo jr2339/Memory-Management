@@ -13,7 +13,7 @@ pages through the use of a series of page arrays and offets.
        weekly meeting.
 
 * Prototype date 04/26/2017
-* Final version due date 05/28/2017 (?)
+* Final version due date 04/28/2017 (?)
 * Presentation date 05/01/2017 (?)
  -------------------------------------------------------------------------------
 
