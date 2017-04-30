@@ -15,6 +15,14 @@
 #include <vector>
 #include "Pointer.hpp"
 
+/***************************************************************************//**
+*                                      Node
+*  @brief A Node made specifically for DNA sequencing trees/tries.
+*
+*  This node class is made primarily for DNA sequencing trees/tries due to the
+*    ACTG pointers, but could easily be adapted for other uses.
+*******************************************************************************/
+
 class Node{
 public:
     Node();
@@ -32,6 +40,14 @@ private:
     bool terminal;
 };
 
+
+/***************************************************************************//**
+*                                      Trie
+*  @brief A prefix Trie.
+*
+*  Breaks a sequence into characters and inserts them in one by one into a
+*    quaternary trie.
+*******************************************************************************/
 class Trie {
 public:
     Trie();
