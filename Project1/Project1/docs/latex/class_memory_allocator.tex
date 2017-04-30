@@ -1,0 +1,76 @@
+\hypertarget{class_memory_allocator}{}\section{Memory\+Allocator$<$ T $>$ Class Template Reference}
+\label{class_memory_allocator}\index{Memory\+Allocator$<$ T $>$@{Memory\+Allocator$<$ T $>$}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_memory_allocator_a9c7ca60e8881012d0311c98689359c91}{Memory\+Allocator} ()
+\item 
+\hyperlink{class_memory_allocator_a06ba8aa77baa4fea0096da7f0c720e7b}{$\sim$\+Memory\+Allocator} ()
+\item 
+\mbox{\Hypertarget{class_memory_allocator_a3666385085a0766287a7406f192ad2d3}\label{class_memory_allocator_a3666385085a0766287a7406f192ad2d3}} 
+uint64\+\_\+t {\bfseries allocate} ()
+\item 
+\mbox{\Hypertarget{class_memory_allocator_a349594e91676987dd38c49d8e9ed60fc}\label{class_memory_allocator_a349594e91676987dd38c49d8e9ed60fc}} 
+void $\ast$ {\bfseries memory} (uint64\+\_\+t)
+\item 
+\mbox{\Hypertarget{class_memory_allocator_a0e68bf95dfe75d4db24fb765cfa7c0fb}\label{class_memory_allocator_a0e68bf95dfe75d4db24fb765cfa7c0fb}} 
+void $\ast$ {\bfseries reference} (uint64\+\_\+t)
+\item 
+void \hyperlink{class_memory_allocator_a0afd80ad46c6631bc7986d8a3fe36f3c}{smalloc} (\hyperlink{structpointer}{pointer} \&)
+\item 
+\hyperlink{structpointer}{pointer} \hyperlink{class_memory_allocator_a8712abdd481153bf70734258bfc3f8b9}{smalloc} ()
+\item 
+\mbox{\Hypertarget{class_memory_allocator_a528a642157870b5d8e667a0cf4fcebfd}\label{class_memory_allocator_a528a642157870b5d8e667a0cf4fcebfd}} 
+std\+::vector$<$ \hyperlink{class_page}{Page}$<$ T $>$ $\ast$ $>$ {\bfseries get\+Pages} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_memory_allocator_a9c7ca60e8881012d0311c98689359c91}\label{class_memory_allocator_a9c7ca60e8881012d0311c98689359c91}} 
+\index{Memory\+Allocator@{Memory\+Allocator}!Memory\+Allocator@{Memory\+Allocator}}
+\index{Memory\+Allocator@{Memory\+Allocator}!Memory\+Allocator@{Memory\+Allocator}}
+\subsubsection{\texorpdfstring{Memory\+Allocator()}{MemoryAllocator()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{class_memory_allocator}{Memory\+Allocator}$<$ T $>$\+::\hyperlink{class_memory_allocator}{Memory\+Allocator} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Serves as an intermediate memory layer.
+
+A vector of memory pages. Templated to accept any type of object, but all objects within a memory allocator must be of the same type. \mbox{\Hypertarget{class_memory_allocator_a06ba8aa77baa4fea0096da7f0c720e7b}\label{class_memory_allocator_a06ba8aa77baa4fea0096da7f0c720e7b}} 
+\index{Memory\+Allocator@{Memory\+Allocator}!````~Memory\+Allocator@{$\sim$\+Memory\+Allocator}}
+\index{````~Memory\+Allocator@{$\sim$\+Memory\+Allocator}!Memory\+Allocator@{Memory\+Allocator}}
+\subsubsection{\texorpdfstring{$\sim$\+Memory\+Allocator()}{~MemoryAllocator()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{class_memory_allocator}{Memory\+Allocator}$<$ T $>$\+::$\sim$\hyperlink{class_memory_allocator}{Memory\+Allocator} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\hyperlink{class_memory_allocator_a06ba8aa77baa4fea0096da7f0c720e7b}{Memory\+Allocator\+::$\sim$\+Memory\+Allocator()} -\/\+Default deconstructor. Deletes All Pages in allocated Memory. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_memory_allocator_a0afd80ad46c6631bc7986d8a3fe36f3c}\label{class_memory_allocator_a0afd80ad46c6631bc7986d8a3fe36f3c}} 
+\index{Memory\+Allocator@{Memory\+Allocator}!smalloc@{smalloc}}
+\index{smalloc@{smalloc}!Memory\+Allocator@{Memory\+Allocator}}
+\subsubsection{\texorpdfstring{smalloc()}{smalloc()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \hyperlink{class_memory_allocator}{Memory\+Allocator}$<$ T $>$\+::smalloc (\begin{DoxyParamCaption}\item[{\hyperlink{structpointer}{pointer} \&}]{ptr }\end{DoxyParamCaption})}
+
+\hyperlink{class_memory_allocator_a8712abdd481153bf70734258bfc3f8b9}{Memory\+Allocator\+::smalloc()} Small memory allocate
+
+
+\begin{DoxyParams}{Parameters}
+{\em ptr} & The address of the pointer that we wish to smalloc. Creates a new pointer object and fills it with information regarding the memory location to which it points. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_memory_allocator_a8712abdd481153bf70734258bfc3f8b9}\label{class_memory_allocator_a8712abdd481153bf70734258bfc3f8b9}} 
+\index{Memory\+Allocator@{Memory\+Allocator}!smalloc@{smalloc}}
+\index{smalloc@{smalloc}!Memory\+Allocator@{Memory\+Allocator}}
+\subsubsection{\texorpdfstring{smalloc()}{smalloc()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{structpointer}{pointer} \hyperlink{class_memory_allocator}{Memory\+Allocator}$<$ T $>$\+::smalloc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\hyperlink{class_memory_allocator_a8712abdd481153bf70734258bfc3f8b9}{Memory\+Allocator\+::smalloc()} Small memory allocate
+
+Creates a new pointer object and fills it with information regarding the memory location to which it points. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+includes/Pointer.\+hpp\item 
+src/Pointer.\+cpp\end{DoxyCompactItemize}

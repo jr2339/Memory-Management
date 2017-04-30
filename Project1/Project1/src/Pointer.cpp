@@ -8,14 +8,12 @@
 
 #include "../includes/Pointer.hpp"
 #include "../includes/Prefix_Trie_custom.hpp"
-/***********************************************************************
- uint64_t: Integer type with a width of exactly 64 bits which is 8 bytes.
- Page has these attributes:
- 1.root_address: assign with any number, at here, we assign it to 1 as the 1st page address
- 2.max_count: variable be used to check our page is full or not
- 3.current_offet: index to node we are current visiting
- 4.Memory: Total memory for each page is the sum of all Nodes
- ************************************************************************/
+
+/***************************************************************************//**
+                                     Page()
+* @param address The index of the page.
+* @param max The total number of T typed objects that can be stored in the array.
+*******************************************************************************/
 
 template<typename T> Page<T>::Page(uint64_t address, unsigned int max):
   //uses an initializer list to set const class member variables
@@ -23,16 +21,21 @@ template<typename T> Page<T>::Page(uint64_t address, unsigned int max):
     current_offset = 0;
     memory = new T[max_count];
 }
-/*******************************************************************************
- ~Page()
- -Default deconstructor.  Deletes All Nodes in each page.
+
+
+/***************************************************************************//**
+*                                 Page::~Page()
+* -Default deconstructor.  Deletes All Nodes in each page.
  ******************************************************************************/
 template<typename T> Page<T> ::~Page(){
-  //
+  //left blank
 }
-/*******************************************************************************
- Page::is_full()
- -Using current_offsets and max_count to check page is filled with node or not
+
+
+/***************************************************************************//**
+ *                                 Page::is_full()
+ *  -Determine whether or not the page is full.
+ *  @return True if no unused space is available, false otherwise.
  ******************************************************************************/
 
 template <typename T> bool Page<T>::is_full(){
@@ -40,10 +43,10 @@ template <typename T> bool Page<T>::is_full(){
 }
 
 
-/*******************************************************************************
- Page::get_next_address()
- -If the page is not full, we use current_offset to find the offset within the
-    page.
+/***************************************************************************//**
+*                               Page::get_next_address()
+*  -Get the next available space in the page.
+*  @return The next available space in the page.
  ******************************************************************************/
 
 template <typename T> uint64_t Page<T>::get_next_address(){
@@ -55,27 +58,32 @@ template <typename T> uint64_t Page<T>::get_next_address(){
 }
 
 
-/*******************************************************************************
-                                getRootAddress()
-   - Getter for root_address (page index)
- ******************************************************************************/
+/***************************************************************************//**
+*                             Page::getRootAddress()
+*  -Getter for root_address (page index)
+*  @return The address / index of the page.
+******************************************************************************/
 template <typename T> uint64_t Page<T>::getRootAddress(){
-  return root_address;
+    return root_address;
 }
 
 /*******************************************************************************
- Page::get_memory_of(unsigned int offset)
- -We need to decide the node locate in which page
- and we can return how many memory we need
- ******************************************************************************/
+*                                Page::get_memory_of()
+*-We need to decide the node locate in which page
+*and we can return how many memory we need
+******************************************************************************/
+/*
 template <typename T> T *Page<T>::get_memory_of(unsigned int offset) {
-  return &memory[offset];
+return &memory[offset];
 }
+*/
 
-/*******************************************************************************
- Page::set()
- -Sets memory at <offset> to <value>
- ******************************************************************************/
+/***************************************************************************//**
+*                                   Page::set()
+*  -Sets memory at <offset> to <value>
+*  @param offset The index that we want to set.
+*  @param val The value that we want to place at the specified offset.
+*******************************************************************************/
 
 template <typename T> void Page<T>::set(uint64_t offset, T val) {
   this->memory[offset] = val;
@@ -89,19 +97,22 @@ template <typename T> void Page<T>::set(uint64_t offset, T val) {
  ==============================================================================
  ******************************************************************************/
 
-/***********************************************************************
-After we figure out page construct, we will allocate memory
- ************************************************************************/
-
+/**************************************************************************//**
+*  Serves as an intermediate memory layer.
+*
+*  A vector of memory pages.  Templated to accept any type of object, but all
+*  objects within a memory allocator must be of the same type.
+******************************************************************************/
 template <typename T> MemoryAllocator<T>::MemoryAllocator(){
     // The final page / offset combination is reserved for "NULL" pointers -
     //   pointers that have been instantiated but not initialized.
     next_page_address = 0;
     addPage();
 }
-/*******************************************************************************
- ~MemoryAllocator()
- -Default deconstructor.  Deletes All Pages in allocated Memory.
+
+/***************************************************************************//**
+ *                        MemoryAllocator::~MemoryAllocator()
+ *  -Default deconstructor.  Deletes All Pages in allocated Memory.
  ******************************************************************************/
 template <typename T> MemoryAllocator<T>::~MemoryAllocator(){
   while(uint64_t i = pages.size()){
@@ -111,9 +122,10 @@ template <typename T> MemoryAllocator<T>::~MemoryAllocator(){
 }
 
 
-/*******************************************************************************
-addPage()
-Used for page is not enough
+/***************************************************************************//**
+ *                             MemoryAllocator::addPage()
+ *  Used to add an additional page in the event that all previous pages are full
+ *  @return The newly created page.
  ******************************************************************************/
 template <typename T> Page<T>* MemoryAllocator<T>::addPage(){
     uint64_t root_address = next_page_address++;
@@ -122,11 +134,12 @@ template <typename T> Page<T>* MemoryAllocator<T>::addPage(){
     return p;
 }
 
-/*******************************************************************************
-                             smalloc()
-    - Small memory allocate
-    - Creates a new pointer object and fills it with information regarding the
-        memory location to which it points.
+/***************************************************************************//**
+ *                              MemoryAllocator::smalloc()
+ *  Small memory allocate
+ *
+ *  Creates a new pointer object and fills it with information regarding the
+ *     memory location to which it points.
 *******************************************************************************/
 template <typename T> pointer MemoryAllocator<T>::smalloc(){
   struct pointer ptr = {.page={255,255,255}, .offset = {255,255}};
@@ -139,11 +152,14 @@ template <typename T> pointer MemoryAllocator<T>::smalloc(){
   return ptr;
 }
 
-/*******************************************************************************
-                             smalloc()
-    -small memory allocate
-    -Uses a preallocated pointer.  Fills the pointer with information regarding
-       the memory location to which it points.
+
+/***************************************************************************//**
+ *                              MemoryAllocator::smalloc()
+ *  Small memory allocate
+ *
+ *  @param ptr The address of the pointer that we wish to smalloc.
+ *  Creates a new pointer object and fills it with information regarding the
+ *     memory location to which it points.
 *******************************************************************************/
 template <typename T> void MemoryAllocator<T>::smalloc(pointer &ptr){
   Page<T> *p = pages.back();
@@ -165,6 +181,7 @@ template <typename T> std::vector<Page<T>*> MemoryAllocator<T>::getPages(){
  ******************************************************************************
  ******************************************************************************/
 
+/*
 record get_record(ifstream ifs){
     string new_header;
     string new_sequence;
@@ -175,9 +192,15 @@ record get_record(ifstream ifs){
 
     return new_record;
 }
-/*******************************************************************************
-                             charsToUint64()
-    -converts char array to uint64_t
+*/
+
+
+/***************************************************************************//**
+ *                                 charsToUint64()
+ *  -Converts char array to uint64_t
+ *  @param chars The array of characters that we wish to convert to uint64_t
+ *  @param numChars The number of characters.
+ *  @return the uint64_t conversion of the characters that were passed in.
 *******************************************************************************/
 uint64_t charsToUint64(unsigned char *chars, char numChars){
   uint64_t uintVal = 0;
@@ -188,10 +211,14 @@ uint64_t charsToUint64(unsigned char *chars, char numChars){
 }
 
 
-/*******************************************************************************
-                             uint64ToChars()
-    - Converts uint64 to an array of characters.
-    - Outputs directly into outArray.
+/**************************************************************************//**
+ *                                 uint64ToChars()
+ *  - Converts uint64 to an array of characters.
+ *  - Outputs directly into outArray.
+ *  @param intVal The uint64_t value that we want to split into an array of chars.
+ *  @param numChars The number of characters necessary to hold the new value.
+ *  @param[out] outArray The character array to which we send the newly created
+ *     value.
 *******************************************************************************/
 void uint64ToChars(uint64_t intVal, char numChars, unsigned char *outArray){
   // Cast int to char * so that we can iterate over bytes
@@ -204,9 +231,13 @@ void uint64ToChars(uint64_t intVal, char numChars, unsigned char *outArray){
 }
 
 
-/*******************************************************************************
-                             isNull()
-    - Checks whether or not a pointer is null
+/***************************************************************************//**
+ *                             isNull()
+ *   - Checks whether or not a pointer is null
+ *  @param ptr The pointer that we want to check for null.
+ *  @return True if the pointer is null, false otherwise.
+ *
+ *  A pointer is considered null if both page and offset are at their max value.
 *******************************************************************************/
 bool isNull(pointer ptr){
   return (charsToUint64(ptr.page, NPAGECHARS) == ((1 << (NPAGECHARS*8))-1) &&

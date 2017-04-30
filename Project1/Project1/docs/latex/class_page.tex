@@ -1,0 +1,102 @@
+\hypertarget{class_page}{}\section{Page$<$ T $>$ Class Template Reference}
+\label{class_page}\index{Page$<$ T $>$@{Page$<$ T $>$}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_page_ac9e22e2694dfa6a7dc4f80166c0217c5}{Page} (uint64\+\_\+t, unsigned int)
+\item 
+\hyperlink{class_page_a7312a131c7f52718cf4f2b6f487d31bf}{$\sim$\+Page} ()
+\item 
+bool \hyperlink{class_page_a8c27abd6fb2ce55c05b065584b4bcc75}{is\+\_\+full} ()
+\item 
+uint64\+\_\+t \hyperlink{class_page_ae6ac153d53ddb0493a4fff270dfa42cb}{get\+\_\+next\+\_\+address} ()
+\item 
+uint64\+\_\+t \hyperlink{class_page_a438a928e0ce67dc404f183678eb533ec}{get\+Root\+Address} ()
+\item 
+\mbox{\Hypertarget{class_page_a2695af38818eda73c4e8b5e00d04fa55}\label{class_page_a2695af38818eda73c4e8b5e00d04fa55}} 
+T $\ast$ {\bfseries get\+\_\+memory\+\_\+of} (unsigned int)
+\item 
+void \hyperlink{class_page_a4de67b2afdfe14758388f745a8a99d56}{set} (uint64\+\_\+t, T)
+\item 
+\mbox{\Hypertarget{class_page_aefe72b00d99730ca199f7d42c1b7d95f}\label{class_page_aefe72b00d99730ca199f7d42c1b7d95f}} 
+void $\ast$ {\bfseries get\+\_\+reference\+\_\+of} (unsigned int)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_page_ac9e22e2694dfa6a7dc4f80166c0217c5}\label{class_page_ac9e22e2694dfa6a7dc4f80166c0217c5}} 
+\index{Page@{Page}!Page@{Page}}
+\index{Page@{Page}!Page@{Page}}
+\subsubsection{\texorpdfstring{Page()}{Page()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{class_page}{Page}$<$ T $>$\+::\hyperlink{class_page}{Page} (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{address,  }\item[{unsigned int}]{max }\end{DoxyParamCaption})}
+
+\hyperlink{class_page_ac9e22e2694dfa6a7dc4f80166c0217c5}{Page()} 
+\begin{DoxyParams}{Parameters}
+{\em address} & The index of the page. \\
+\hline
+{\em max} & The total number of T typed objects that can be stored in the array. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_page_a7312a131c7f52718cf4f2b6f487d31bf}\label{class_page_a7312a131c7f52718cf4f2b6f487d31bf}} 
+\index{Page@{Page}!````~Page@{$\sim$\+Page}}
+\index{````~Page@{$\sim$\+Page}!Page@{Page}}
+\subsubsection{\texorpdfstring{$\sim$\+Page()}{~Page()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\hyperlink{class_page}{Page}$<$ T $>$\+::$\sim$\hyperlink{class_page}{Page} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\hyperlink{class_page_a7312a131c7f52718cf4f2b6f487d31bf}{Page\+::$\sim$\+Page()} -\/\+Default deconstructor. Deletes All Nodes in each page. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_page_ae6ac153d53ddb0493a4fff270dfa42cb}\label{class_page_ae6ac153d53ddb0493a4fff270dfa42cb}} 
+\index{Page@{Page}!get\+\_\+next\+\_\+address@{get\+\_\+next\+\_\+address}}
+\index{get\+\_\+next\+\_\+address@{get\+\_\+next\+\_\+address}!Page@{Page}}
+\subsubsection{\texorpdfstring{get\+\_\+next\+\_\+address()}{get\_next\_address()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+uint64\+\_\+t \hyperlink{class_page}{Page}$<$ T $>$\+::get\+\_\+next\+\_\+address (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\hyperlink{class_page_ae6ac153d53ddb0493a4fff270dfa42cb}{Page\+::get\+\_\+next\+\_\+address()} -\/\+Get the next available space in the page. \begin{DoxyReturn}{Returns}
+The next available space in the page. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_page_a438a928e0ce67dc404f183678eb533ec}\label{class_page_a438a928e0ce67dc404f183678eb533ec}} 
+\index{Page@{Page}!get\+Root\+Address@{get\+Root\+Address}}
+\index{get\+Root\+Address@{get\+Root\+Address}!Page@{Page}}
+\subsubsection{\texorpdfstring{get\+Root\+Address()}{getRootAddress()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+uint64\+\_\+t \hyperlink{class_page}{Page}$<$ T $>$\+::get\+Root\+Address (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\hyperlink{class_page_a438a928e0ce67dc404f183678eb533ec}{Page\+::get\+Root\+Address()} -\/\+Getter for root\+\_\+address (page index) \begin{DoxyReturn}{Returns}
+The address / index of the page. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_page_a8c27abd6fb2ce55c05b065584b4bcc75}\label{class_page_a8c27abd6fb2ce55c05b065584b4bcc75}} 
+\index{Page@{Page}!is\+\_\+full@{is\+\_\+full}}
+\index{is\+\_\+full@{is\+\_\+full}!Page@{Page}}
+\subsubsection{\texorpdfstring{is\+\_\+full()}{is\_full()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \hyperlink{class_page}{Page}$<$ T $>$\+::is\+\_\+full (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\hyperlink{class_page_a8c27abd6fb2ce55c05b065584b4bcc75}{Page\+::is\+\_\+full()} -\/\+Determine whether or not the page is full. \begin{DoxyReturn}{Returns}
+True if no unused space is available, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_page_a4de67b2afdfe14758388f745a8a99d56}\label{class_page_a4de67b2afdfe14758388f745a8a99d56}} 
+\index{Page@{Page}!set@{set}}
+\index{set@{set}!Page@{Page}}
+\subsubsection{\texorpdfstring{set()}{set()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \hyperlink{class_page}{Page}$<$ T $>$\+::set (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{offset,  }\item[{T}]{val }\end{DoxyParamCaption})}
+
+\hyperlink{class_page_a4de67b2afdfe14758388f745a8a99d56}{Page\+::set()} -\/\+Sets memory at $<$offset$>$ to 
+
+
+\begin{DoxyParams}{Parameters}
+{\em offset} & The index that we want to set. \\
+\hline
+{\em val} & The value that we want to place at the specified offset. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+includes/Pointer.\+hpp\item 
+src/Pointer.\+cpp\end{DoxyCompactItemize}

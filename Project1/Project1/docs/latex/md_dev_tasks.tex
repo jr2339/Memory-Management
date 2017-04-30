@@ -1,0 +1,79 @@
+This project is designed to reduce the amount of memory necessary to reference memory in a C/\+C++ environment. It does not change the size of a pointer allocated by a malloc/calloc, but is intended to reference pre-\/allocated memory pages through the use of a series of page arrays and offets.
+
+\subsection*{Backlog}
+
+\begin{DoxyVerb}Instructions:
+1. Only the project owners may add items in the backlog.
+2. Items may be moved from the Backlog to Tasks at the
+   weekly meeting.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item Prototype date 04/26/2017
+\item Final version due date 05/28/2017 (?) \subsection*{$\ast$ Presentation date 05/01/2017 (?) }
+\end{DoxyItemize}
+
+\subsection*{Tasks}
+
+\begin{DoxyVerb}Instructions:
+1. Subitems may only be added at meetings.
+2. Subsubitems may only be added by developers.
+3. Items without initials are not being worked on.
+4. Items with initials are being worked on.
+5. Items may be moved to the Changelog iff the task
+   has been completed.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyItemize}
+\item Implementation
+\begin{DoxyItemize}
+\item \hyperlink{class_page}{Page}
+\begin{DoxyItemize}
+\item Determine size of each item (as size\+\_\+t in constructor, probably)
+\item Find next free space
+\item Get empty / not empty status (easy!)
+\item Handle deletions / frees
+\end{DoxyItemize}
+\item Memory Allocator (Array of pages)
+\begin{DoxyItemize}
+\item Add new pages
+\end{DoxyItemize}
+\item \hyperlink{class_trie}{Trie}
+\begin{DoxyItemize}
+\item Convert \hyperlink{class_node}{Node} pointers from OS style pointer to our own style (page / offset)
+\end{DoxyItemize}
+\item Pointer (struct? class?)
+\begin{DoxyItemize}
+\item Determine size of page array / offset (position within page) array
+\item Convert array of chars to integer index
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item Testing
+\begin{DoxyItemize}
+\item Benchmarks
+\begin{DoxyItemize}
+\item Size (our pointers vs OS pointers)
+\item Speed (our pointers vs OS pointers)
+\end{DoxyItemize}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\subsection*{Changelog}
+
+April 15, 2017
+\begin{DoxyItemize}
+\item JR\+: Initialized repository
+\end{DoxyItemize}
+
+\subsection*{People}
+
+
+\begin{DoxyItemize}
+\item CB\+: Caitlyn Barrett \href{mailto:cb2693@nau.edu}{\tt cb2693@nau.\+edu}
+\item AS\+: Austin Sanders \href{mailto:as2544@nau.edu}{\tt as2544@nau.\+edu}
+\item JR\+: Jun Rao \href{mailto:jr2339@nau.edu}{\tt jr2339@nau.\+edu} 
+\end{DoxyItemize}
