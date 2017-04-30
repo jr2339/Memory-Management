@@ -217,7 +217,6 @@ Trie::Trie(char **sequences, int nSeq, int seqLength){
 
 ******************************************************************************/
 
-//@@TODO
 void Trie::addWord(char *word, int wordLength){
   pointer current = root;
 
@@ -238,20 +237,23 @@ void Trie::addWord(char *word, int wordLength){
 
 ******************************************************************************/
 
-//@@TODO
-  bool Trie::searchWord(char *word, int wordLength){
-  Node *current = root;
+bool Trie::searchWord(char *word, int wordLength){
+  pointer current = root;
+  Node *cNode;
   for(int i = 0; i < wordLength; i++){
-  // If the pointer is null, we can't go any farther, so the sequence
-  //   is not in the tree.  Just return 0 / False.
-  if (!(current = current->getChild(word[i]))){
-  return 0;
-  }
+    // If the pointer is null, we can't go any farther, so the sequence
+    //   is not in the tree.  Just return 0 / False.
+    cNode = (memLayer->getPages()).at(charsToUint64(current.page, NPAGECHARS))->
+      get_memory_of(charsToUint64(current.offset, NOFFSETCHARS));
+    current = cNode->getChild(word[i]);
+    if (!(charsToUint64(current.page,NPAGECHARS))){
+        return 0;
+    }
   }
   // If we made it all the way to the end of our target sequence, check if
   //   the node is terminal for some word.
-  return current->isTerminal();
-  }
+  return cNode->isTerminal();
+}
 
 
 
