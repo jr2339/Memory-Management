@@ -6,7 +6,8 @@
 //  Copyright © 2017 jr2339. All rights reserved.
 //
 
-#include "Pointer.hpp"
+#include "../includes/Pointer.hpp"
+#include "../includes/Prefix_Trie_custom.hpp"
 /***********************************************************************
  uint64_t: Integer type with a width of exactly 64 bits which is 8 bytes.
  Page has these attributes:
@@ -27,7 +28,7 @@ template<typename T> Page<T>::Page(uint64_t address, unsigned int max):
  -Default deconstructor.  Deletes All Nodes in each page.
  ******************************************************************************/
 template<typename T> Page<T> ::~Page(){
-    free(memory);
+  //
 }
 /*******************************************************************************
  Page::is_full()
@@ -71,6 +72,14 @@ template <typename T> T *Page<T>::get_memory_of(unsigned int offset) {
   return memory[offset];
 }
 
+/*******************************************************************************
+ Page::set()
+ -Sets memory at <offset> to <value>
+ ******************************************************************************/
+
+template <typename T> void Page<T>::set(uint64_t offset, T val) {
+  this->memory[offset] = val;
+}
 
 /******************************************************************************
  ==============================================================================
@@ -84,8 +93,10 @@ template <typename T> T *Page<T>::get_memory_of(unsigned int offset) {
 After we figure out page construct, we will allocate memory
  ************************************************************************/
 
-template <typename T> MemoryAllocator<T>::MemoryAllocator(int size){
-    //init the 1st page address
+template <typename T> MemoryAllocator<T>::MemoryAllocator(){
+    // init the 1st page address
+    // Page 0 is reserved for "NULL" pointers - pointers that have been
+    //   instantiated but not initialized.
     next_page_address = 1;
     addPage();
 }
@@ -107,7 +118,7 @@ Used for page is not enough
  ******************************************************************************/
 template <typename T> Page<T>* MemoryAllocator<T>::addPage(){
     uint64_t root_address = next_page_address++;
-    Page<T>* p = new Page<T>(root_address);
+    Page<T>* p = new Page<T>(root_address, (1 << (NOFFSETCHARS*8)));
     pages.push_back(p);
     return p;
 }
@@ -144,32 +155,8 @@ template <typename T> void MemoryAllocator<T>::smalloc(pointer *ptr){
   uint64ToChars(p->get_next_address(), (char)NOFFSETCHARS, (unsigned char*)(&(ptr->offset)));
 }
 
-/*******************************************************************************
-                             charsToUint64()
-    -converts char array to uint64_t
-*******************************************************************************/
-template <typename T> uint64_t MemoryAllocator<T>::charsToUint64(unsigned char *chars, char numChars){
-  uint64_t uintVal = 0;
-  for(int i = 0; i < numChars; i++){
-    uintVal = uintVal | (chars[i] << ((numChars-(i+1))*8));
-  }
-  return uintVal;
-}
-
-
-/*******************************************************************************
-                             uint64ToChars()
-    - Converts uint64 to an array of characters.
-    - Outputs directly into outArray.
-*******************************************************************************/
-template <typename T> void MemoryAllocator<T>::uint64ToChars(uint64_t intVal, char numChars, unsigned char *outArray){
-  // Cast int to char * so that we can iterate over bytes
-  unsigned char *newVal = (unsigned char*) &intVal;
-  // We have to copy in reverse order on little endian machines, not sure how
-  //   this will be affected on big-endian.  May be problemeatic.
-  for (int i = 0; i < numChars; i++){
-    memset((&outArray[i]), newVal[numChars - (i+1)],1);
-  }
+template <typename T> std::vector<Page<T>*> MemoryAllocator<T>::getPages(){
+  return pages;
 }
 
 /******************************************************************************
@@ -189,3 +176,33 @@ record get_record(ifstream ifs){
 
     return new_record;
 }
+/*******************************************************************************
+                             charsToUint64()
+    -converts char array to uint64_t
+*******************************************************************************/
+uint64_t charsToUint64(unsigned char *chars, char numChars){
+  uint64_t uintVal = 0;
+  for(int i = 0; i < numChars; i++){
+    uintVal = uintVal | (chars[i] << ((numChars-(i+1))*8));
+  }
+  return uintVal;
+}
+
+
+/*******************************************************************************
+                             uint64ToChars()
+    - Converts uint64 to an array of characters.
+    - Outputs directly into outArray.
+*******************************************************************************/
+void uint64ToChars(uint64_t intVal, char numChars, unsigned char *outArray){
+  // Cast int to char * so that we can iterate over bytes
+  unsigned char *newVal = (unsigned char*) &intVal;
+  // We have to copy in reverse order on little endian machines, not sure how
+  //   this will be affected on big-endian.  May be problemeatic.
+  for (int i = 0; i < numChars; i++){
+    memset((&outArray[i]), newVal[numChars - (i+1)],1);
+  }
+}
+
+
+template class MemoryAllocator<Node>;

@@ -32,20 +32,21 @@ private:
     bool terminal;
 };
 
-class Trie{
+class Trie {
 public:
-    Trie(MemoryAllocator *);
-    Trie(MemoryAllocator *, char **, int, int);
+    Trie();
+    Trie(char **, int, int);
     Trie(Trie*);
     ~Trie();
+  //void setMemLayer(void *);
     void addWord(char *, int);
     bool searchWord(char *, int);
     std::vector<int> traverse(char *, int, int);
     int getSize();
 private:
-  MemoryAllocator *memLocation;
+  // MemoryAllocator<Node> *memLayer;
     pointer root;
     int size;
 };
 
-#endif /* Prefix_Trie_hpp */
+#endif /* Prefix_Trie_custom_hpp */

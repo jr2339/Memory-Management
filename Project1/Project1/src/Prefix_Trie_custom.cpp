@@ -1,5 +1,6 @@
 #include "../includes/Prefix_Trie_custom.hpp"
 
+MemoryAllocator<Node> *memLayer;
 /*******************************************************************************
 
                                      Node()
@@ -23,10 +24,7 @@ Node::Node(){
 
 //@@TODO
 Node::~Node(){
-  delete A;
-  delete C;
-  delete G;
-  delete T;
+  //
 }
 /*******************************************************************************
 
@@ -35,6 +33,7 @@ Node::~Node(){
 
  ******************************************************************************/
 
+/*
 //@@TODO
 Node *Node::deepCopy(){
   if (!this){
@@ -48,6 +47,8 @@ Node *Node::deepCopy(){
   newNode->G = this->G->deepCopy();
   return newNode;
 }
+*/
+
 /*******************************************************************************
 
                                      getChild()
@@ -67,7 +68,7 @@ pointer Node::getChild(char child){
   case 'T':
     return T;
   }
-  return (pointer){};
+  return (pointer){.page={0,0,0}, .offset={0,0}};
 }
 /*******************************************************************************
 
@@ -77,35 +78,45 @@ pointer Node::getChild(char child){
 
  ******************************************************************************/
 
-//@@TODO
 pointer Node::setChild(char child, int *size){
+  uint64_t page = 0;
   switch(child){
   case 'A':
-    if (getChild('A') == NULL){
-       A = new Node();
+    if ((page = charsToUint64(getChild('A').page,(char)NPAGECHARS)) == 0){
+       A = memLayer->smalloc();
+       uint64_t offset = charsToUint64(A.offset, (char)NOFFSETCHARS);
+       (memLayer->getPages().at(page))->set(offset, Node());
        (*size)++;
     }
     return A;
   case 'C':
-    if (!C){
-       C = new Node();
+    if ((page = charsToUint64(getChild('C').page,(char)NPAGECHARS)) == 0){
+       C = memLayer->smalloc();
+       uint64_t offset = charsToUint64(C.offset, (char)NOFFSETCHARS);
+       (memLayer->getPages().at(page))->set(offset, Node());
        (*size)++;
     }
     return C;
   case 'G':
-    if (!G){
-       G = new Node();
+
+    if ((page = charsToUint64(getChild('G').page,(char)NPAGECHARS)) == 0){
+       G = memLayer->smalloc();
+       uint64_t offset = charsToUint64(G.offset, (char)NOFFSETCHARS);
+       (memLayer->getPages().at(page))->set(offset, Node());
        (*size)++;
     }
     return G;
   case 'T':
-    if (!T){
-       T = new Node();
+
+    if ((page = charsToUint64(getChild('T').page,(char)NPAGECHARS)) == 0){
+       T = memLayer->smalloc();
+       uint64_t offset = charsToUint64(T.offset, (char)NOFFSETCHARS);
+       (memLayer->getPages().at(page))->set(offset, Node());
        (*size)++;
     }
     return T;
   }
-  return NULL;
+  return (pointer){.page = {0,0,0},.offset={0,0}};
 }
 /*******************************************************************************
 
@@ -137,12 +148,15 @@ void Node::setTerminal(bool val){
 
  ******************************************************************************/
 
-//@@TODO make pointer point to an actual node
-Trie::Trie(MemoryAllocator *mem){
-  memLocation = mem;
+Trie::Trie(){
   size = 0;
-  root = (pointer){};
+  root = memLayer->smalloc();
+  uint64_t page = charsToUint64(root.page, NPAGECHARS);
+  uint64_t offset = charsToUint64(root.offset, NOFFSETCHARS);
+  (memLayer->getPages().at(page))->set(offset, Node());
 }
+
+
 
 /*******************************************************************************
 
@@ -153,6 +167,7 @@ Trie::Trie(MemoryAllocator *mem){
  ******************************************************************************/
 
 //@@TODO
+/*
 Trie::Trie(MemoryAllocator *mem, char **sequences, int nSeq, int seqLength){
   size = 0;
   root = (pointer){};
@@ -165,6 +180,7 @@ Trie::Trie(MemoryAllocator *mem, char **sequences, int nSeq, int seqLength){
     current = root;
   }
 }
+*/
 
 /*******************************************************************************
 
@@ -174,10 +190,12 @@ Trie::Trie(MemoryAllocator *mem, char **sequences, int nSeq, int seqLength){
  ******************************************************************************/
 
 //@@TODO
+/*
 Trie::Trie(Trie *seed){
   size = seed->size;
   root = seed->root->deepCopy();
 }
+*/
 
 /*******************************************************************************
 
@@ -186,9 +204,11 @@ Trie::Trie(Trie *seed){
 
  ******************************************************************************/
 //@@TODO
+/*
 Trie::~Trie(){
   delete(root);
 }
+*/
 
 /*******************************************************************************
 
@@ -198,6 +218,7 @@ Trie::~Trie(){
  ******************************************************************************/
 
 //@@TODO
+/*
 void Trie::addWord(char *word, int wordLength){
   pointer current = root;
   for(int i = 0; i <wordLength; i++){
@@ -205,6 +226,7 @@ void Trie::addWord(char *word, int wordLength){
   }
   current->setTerminal(1);
 }
+*/
 
 /*******************************************************************************
 
@@ -214,6 +236,7 @@ void Trie::addWord(char *word, int wordLength){
  ******************************************************************************/
 
 //@@TODO
+/*
 bool Trie::searchWord(char *word, int wordLength){
   Node *current = root;
   for(int i = 0; i < wordLength; i++){
@@ -227,6 +250,7 @@ bool Trie::searchWord(char *word, int wordLength){
   //   the node is terminal for some word.
   return current->isTerminal();
 }
+*/
 
 
 
@@ -238,6 +262,7 @@ bool Trie::searchWord(char *word, int wordLength){
 
  ******************************************************************************/
 //@@TODO
+/*
 std::vector<int> Trie::traverse(char *sequence, int seqLength, int wordSize){
   std::vector<int> indexVector;
   for(int i = 0; i<seqLength; i++){
@@ -247,6 +272,7 @@ std::vector<int> Trie::traverse(char *sequence, int seqLength, int wordSize){
   }
   return indexVector;
 }
+*/
 
 
 /*******************************************************************************
@@ -260,13 +286,21 @@ int Trie::getSize(){
   return this->size;
 }
 
+void Trie::setMemLayer(void *memLayer){
+
+}
+
 int main(int argc, char **argv){
   if(argc != 2){
     puts("Please supply exactly 2 input arguments.");
+    exit(EXIT_FAILURE);
   }
 
-  MemoryAllocator *memoryLayer = new MemoryAllocator(sizeof(pointer));
-  Trie* prefixTrie = new Trie(memoryLayer);
+  memLayer = new MemoryAllocator<Node>();
+  Trie *prefixTrie = new Trie();
+  // prefixTrie->setMemLayer((void*)memoryLayer);
 
-  return 0;
+  printf("done");
+
+  exit(EXIT_SUCCESS);
 }

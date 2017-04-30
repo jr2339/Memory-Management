@@ -34,13 +34,14 @@ struct pointer{
 
 template<typename T> class Page{
 public:
-  Page(uint64_t address, unsigned int max);
+  Page(uint64_t, unsigned int);
   ~Page();
   bool is_full();
   uint64_t get_next_address();
   uint64_t getRootAddress();
-  T *get_memory_of(unsigned int offset);
-  void *get_reference_of(unsigned int offset);
+  T* get_memory_of(unsigned int);
+  void set(uint64_t, T);
+  void *get_reference_of(unsigned int);
 
 private:
   T *memory;
@@ -53,15 +54,14 @@ private:
 
 template<typename T> class MemoryAllocator{
 public:
-  MemoryAllocator(int Node_size);
+  MemoryAllocator();
   ~MemoryAllocator();
   uint64_t allocate();
-  void* memory(uint64_t virtual_pointer);
-  void* reference(uint64_t vortual_pointer);
-  void smalloc(pointer *ptr);
+  void* memory(uint64_t);
+  void* reference(uint64_t);
+  void smalloc(pointer *);
   pointer smalloc();
-  uint64_t charsToUint64(unsigned char *chars, char numChars);
-  void uint64ToChars(uint64_t intVal, char numChars, unsigned char *outArray);
+  std::vector<Page<T>*> getPages();
 
 private:
   uint64_t next_page_address;
@@ -70,6 +70,8 @@ private:
   unsigned int get_total_page_size(unsigned int Node_size);
 };
 
+uint64_t charsToUint64(unsigned char *, char);
+void uint64ToChars(uint64_t, char, unsigned char *);
 
 
 //store one header and one DNA sequence, we put each record to one Node and store it to the trie 
