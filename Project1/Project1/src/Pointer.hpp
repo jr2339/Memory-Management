@@ -25,7 +25,10 @@ using namespace std;
 #define NPAGECHARS 3
 #define NOFFSETCHARS 2
 
-
+struct pointer{
+    unsigned char page[NPAGECHARS];
+    unsigned char offset[NOFFSETCHARS];
+};
 
 class Page{
 public:
@@ -53,6 +56,9 @@ public:
     uint64_t allocate();
     void* memory(uint64_t virtual_pointer);
     void* reference(uint64_t vortual_pointer);
+  void smalloc(pointer *ptr);
+  uint64_t charsToUint64(unsigned char chars, char numChars);
+  void uint64ToChars(uint64_t intVal, char numChars, unsigned char *outArray);
 
 private:
     const size_t Node_size;
@@ -64,10 +70,7 @@ private:
     unsigned int get_total_page_size(unsigned int Node_size);
 };
 
-struct pointer{
-    char page[NPAGECHARS];
-    char offset[NOFFSETCHARS];
-};
+
 
 //store one header and one DNA sequence, we put each record to one Node and store it to the trie 
 struct record{

@@ -43,8 +43,8 @@ bool Page::is_full(){
 }
 /*******************************************************************************
  Page::get_next_address()
- -If the page is not full, we using root_address
- and offset to show the Node Address in the pase
+ -If the page is not full, we use current_offset to find the offset within the
+    page.
  ******************************************************************************/
 
 uint64_t Page::get_next_address(){
@@ -52,7 +52,7 @@ uint64_t Page::get_next_address(){
         cout << "This Page is full" <<endl;
         return 0;
     }
-    return root_address + current_offset++;
+    return current_offset++;
 }
 /*******************************************************************************
  Page::get_memory_of(unsigned int offset)
@@ -125,8 +125,7 @@ addPage()
 Used for page is not enough
  ******************************************************************************/
 Page* MemoryAllocator::addPage(){
-    uint64_t root_address = next_page_address;
-    next_page_address = next_page_address + per_page_size;
+    uint64_t root_address = next_page_address++;
     Page* p = new Page(root_address,per_page_size,Node_size);
     pages.push_back(p);
     return p;
@@ -163,12 +162,14 @@ unsigned int MemoryAllocator::get_total_page_size(unsigned int Node_size){
     -Allocates space for a pointer within the memory layer and assigns the
        proper page / offset to that pointer.
 *******************************************************************************/
-//@@TODO
-/*
-void MemoryAllocator::smalloc(&pointer ptr){
-
+void MemoryAllocator::smalloc(pointer *ptr){
+  Page *p = pages.back();
+  if (p->is_full()) {
+    p = addPage();
+  }
+  uint64ToChars(pages.back().getRootAddress(), (char)NPAGECHARS, (unsigned char*)(&(ptr->page)));
+  uint64ToChars(p->get_next_address(), (char)NOFFSETCHARS, (unsigned char*)(&(ptr->offset)));
 }
-*/
 
 /*******************************************************************************
                              charsToUint64()
