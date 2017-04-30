@@ -27,10 +27,27 @@ using namespace std;
 #define NPAGECHARS 3
 #define NOFFSETCHARS 2
 
+/***************************************************************************//**
+*                                     pointer{}
+*  @brief Miniature pointer struct.
+*
+*  Comprises page and offset character arrays to minimize the information needed
+*  to access an object within a page.
+*******************************************************************************/
 struct pointer{
   unsigned char page[NPAGECHARS];
   unsigned char offset[NOFFSETCHARS];
 };
+
+/***************************************************************************//**
+*                                      Page
+*  @brief A preallocated chunck of memory.
+*
+*  Intended to loosely mimic the memory scheme of the operating system. Sets
+*    aside a chunk of memory, then allocates pieces within that chunk whenever
+*    we need it.  Templated to allow for objects of any type, but all objects
+*    within a page must be the same type.
+*******************************************************************************/
 
 template<typename T> class Page{
 public:
@@ -51,7 +68,15 @@ private:
 };
 
 
-
+/***************************************************************************//**
+*                                   MemoryAllocator
+*  @brief A custom memory layer.  Essentially a vector of equally sized pages.
+*
+*  Intended to loosely mimic the memory scheme of the operating system. Sets
+*    aside a chunk of memory, then allocates pieces within that chunk whenever
+*    we need it.  Templated to allow for objects of any type, but all objects
+*    within the memory layer must be the same type.
+*******************************************************************************/
 template<typename T> class MemoryAllocator{
 public:
   MemoryAllocator();

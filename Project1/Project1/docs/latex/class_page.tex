@@ -1,5 +1,9 @@
 \hypertarget{class_page}{}\section{Page$<$ T $>$ Class Template Reference}
 \label{class_page}\index{Page$<$ T $>$@{Page$<$ T $>$}}
+
+
+{\ttfamily \#include $<$Pointer.\+hpp$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -22,6 +26,14 @@ void \hyperlink{class_page_a4de67b2afdfe14758388f745a8a99d56}{set} (uint64\+\_\+
 void $\ast$ {\bfseries get\+\_\+reference\+\_\+of} (unsigned int)
 \end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Page$<$ T $>$}
+
+\hyperlink{class_page}{Page} A preallocated chunck of memory.
+
+Intended to loosely mimic the memory scheme of the operating system. Sets aside a chunk of memory, then allocates pieces within that chunk whenever we need it. Templated to allow for objects of any type, but all objects within a page must be the same type. 
 
 \subsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_page_ac9e22e2694dfa6a7dc4f80166c0217c5}\label{class_page_ac9e22e2694dfa6a7dc4f80166c0217c5}} 

@@ -1,5 +1,14 @@
 \hypertarget{class_memory_allocator}{}\section{Memory\+Allocator$<$ T $>$ Class Template Reference}
 \label{class_memory_allocator}\index{Memory\+Allocator$<$ T $>$@{Memory\+Allocator$<$ T $>$}}
+
+
+A custom memory layer. Essentially a vector of equally sized pages.  
+
+
+
+
+{\ttfamily \#include $<$Pointer.\+hpp$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -24,6 +33,14 @@ void \hyperlink{class_memory_allocator_a0afd80ad46c6631bc7986d8a3fe36f3c}{smallo
 std\+::vector$<$ \hyperlink{class_page}{Page}$<$ T $>$ $\ast$ $>$ {\bfseries get\+Pages} ()
 \end{DoxyCompactItemize}
 
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Memory\+Allocator$<$ T $>$}
+
+A custom memory layer. Essentially a vector of equally sized pages. 
+
+\hyperlink{class_memory_allocator}{Memory\+Allocator} Intended to loosely mimic the memory scheme of the operating system. Sets aside a chunk of memory, then allocates pieces within that chunk whenever we need it. Templated to allow for objects of any type, but all objects within the memory layer must be the same type. 
 
 \subsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_memory_allocator_a9c7ca60e8881012d0311c98689359c91}\label{class_memory_allocator_a9c7ca60e8881012d0311c98689359c91}} 
