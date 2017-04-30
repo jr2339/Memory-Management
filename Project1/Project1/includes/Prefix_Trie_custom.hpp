@@ -13,28 +13,29 @@
 #include <cstdio>
 #include <cstring>
 #include <vector>
+#include "Pointer.hpp"
 
 class Node{
 public:
     Node();
     ~Node();
-    Node *deepCopy();
-    Node *getChild(char);
-    Node *setChild(char, int*);
+    pointer deepCopy();
+    pointer getChild(char);
+    pointer setChild(char, int*);
     bool isTerminal();
     void setTerminal(bool);
 private:
-    Node *A;
-    Node *C;
-    Node *G;
-    Node *T;
+    pointer A;
+    pointer C;
+    pointer G;
+    pointer T;
     bool terminal;
 };
 
 class Trie{
 public:
-    Trie();
-    Trie(char **, int, int);
+    Trie(MemoryAllocator *);
+    Trie(MemoryAllocator *, char **, int, int);
     Trie(Trie*);
     ~Trie();
     void addWord(char *, int);
@@ -42,7 +43,8 @@ public:
     std::vector<int> traverse(char *, int, int);
     int getSize();
 private:
-    Node *root;
+  MemoryAllocator *memLocation;
+    pointer root;
     int size;
 };
 

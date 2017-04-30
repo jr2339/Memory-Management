@@ -1,4 +1,4 @@
-#include "Prefix_Trie.h"
+#include "../includes/Prefix_Trie_custom.hpp"
 
 /*******************************************************************************
 
@@ -8,10 +8,10 @@
  ******************************************************************************/
 
 Node::Node(){
-  A = NULL;
-  C = NULL;
-  G = NULL;
-  T = NULL;
+  A = (pointer) {};
+  C = (pointer) {};
+  G = (pointer) {};
+  T = (pointer) {};
   terminal = 0;
 }
 /*******************************************************************************
@@ -21,6 +21,7 @@ Node::Node(){
 
  ******************************************************************************/
 
+//@@TODO
 Node::~Node(){
   delete A;
   delete C;
@@ -34,6 +35,7 @@ Node::~Node(){
 
  ******************************************************************************/
 
+//@@TODO
 Node *Node::deepCopy(){
   if (!this){
     return NULL;
@@ -54,7 +56,7 @@ Node *Node::deepCopy(){
 
  ******************************************************************************/
 
-Node *Node::getChild(char child){
+pointer Node::getChild(char child){
   switch(child){
   case 'A':
     return A;
@@ -65,7 +67,7 @@ Node *Node::getChild(char child){
   case 'T':
     return T;
   }
-  return NULL;
+  return (pointer){};
 }
 /*******************************************************************************
 
@@ -75,7 +77,8 @@ Node *Node::getChild(char child){
 
  ******************************************************************************/
 
-Node *Node::setChild(char child, int *size){
+//@@TODO
+pointer Node::setChild(char child, int *size){
   switch(child){
   case 'A':
     if (getChild('A') == NULL){
@@ -134,9 +137,11 @@ void Node::setTerminal(bool val){
 
  ******************************************************************************/
 
-Trie::Trie(){
+//@@TODO make pointer point to an actual node
+Trie::Trie(MemoryAllocator *mem){
+  memLocation = mem;
   size = 0;
-  root = new Node();
+  root = (pointer){};
 }
 
 /*******************************************************************************
@@ -147,10 +152,11 @@ Trie::Trie(){
 
  ******************************************************************************/
 
-Trie::Trie(char **sequences, int nSeq, int seqLength){
+//@@TODO
+Trie::Trie(MemoryAllocator *mem, char **sequences, int nSeq, int seqLength){
   size = 0;
-  root = new Node();
-  Node *current = root;
+  root = (pointer){};
+  pointer current = root;
   for(int i = 0; i<nSeq; i++){
     for(int j = 0; j < seqLength ; j++){
       current = current->setChild(sequences[i][j],&size);
@@ -167,6 +173,7 @@ Trie::Trie(char **sequences, int nSeq, int seqLength){
 
  ******************************************************************************/
 
+//@@TODO
 Trie::Trie(Trie *seed){
   size = seed->size;
   root = seed->root->deepCopy();
@@ -178,6 +185,7 @@ Trie::Trie(Trie *seed){
     -Generic deconstructor.  Relies on the underlying node deconstructor.
 
  ******************************************************************************/
+//@@TODO
 Trie::~Trie(){
   delete(root);
 }
@@ -189,8 +197,9 @@ Trie::~Trie(){
 
  ******************************************************************************/
 
+//@@TODO
 void Trie::addWord(char *word, int wordLength){
-  Node *current = root;
+  pointer current = root;
   for(int i = 0; i <wordLength; i++){
     current = current->setChild(word[i],&size);
   }
@@ -204,6 +213,7 @@ void Trie::addWord(char *word, int wordLength){
 
  ******************************************************************************/
 
+//@@TODO
 bool Trie::searchWord(char *word, int wordLength){
   Node *current = root;
   for(int i = 0; i < wordLength; i++){
@@ -227,6 +237,7 @@ bool Trie::searchWord(char *word, int wordLength){
     -Returns the indices of the beginning of each hit.
 
  ******************************************************************************/
+//@@TODO
 std::vector<int> Trie::traverse(char *sequence, int seqLength, int wordSize){
   std::vector<int> indexVector;
   for(int i = 0; i<seqLength; i++){
@@ -247,4 +258,15 @@ std::vector<int> Trie::traverse(char *sequence, int seqLength, int wordSize){
 
 int Trie::getSize(){
   return this->size;
+}
+
+int main(int argc, char **argv){
+  if(argc != 2){
+    puts("Please supply exactly 2 input arguments.");
+  }
+
+  MemoryAllocator *memoryLayer = new MemoryAllocator(sizeof(pointer));
+  Trie* prefixTrie = new Trie(memoryLayer);
+
+  return 0;
 }
