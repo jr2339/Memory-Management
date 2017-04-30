@@ -104,18 +104,6 @@ MemoryAllocator::~MemoryAllocator(){
     }
     pages.clear();
 }
-/*******************************************************************************
- allocator()
-Allcoate enough memory to store our pages
- ******************************************************************************/
-
-uint64_t MemoryAllocator::allocate(){
-    Page *p = pages.back();
-    if (p->is_full()) {
-        p = addPage();
-    }
-    return p->get_next_address();
-}
 
 
 /*******************************************************************************
