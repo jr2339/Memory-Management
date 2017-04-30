@@ -20,7 +20,6 @@
 template<typename T> Page<T>::Page(uint64_t address, unsigned int max):
   //uses an initializer list to set const class member variables
     max_count(max),root_address(address){
-  printf("Current index: %llu\n", root_address);
     current_offset = 0;
     memory = new T[max_count];
 }
@@ -106,7 +105,6 @@ template <typename T> MemoryAllocator<T>::MemoryAllocator(){
  ******************************************************************************/
 template <typename T> MemoryAllocator<T>::~MemoryAllocator(){
   while(uint64_t i = pages.size()){
-    printf("%d\n",i);
     delete(pages[i]);
   }
   pages.clear();
@@ -138,7 +136,6 @@ template <typename T> pointer MemoryAllocator<T>::smalloc(){
   }
   uint64ToChars(pages.back()->getRootAddress(), (char)NPAGECHARS, (unsigned char*)(&(ptr.page)));
   uint64ToChars(p->get_next_address(), (char)NOFFSETCHARS, (unsigned char*)(&(ptr.offset)));
-  printf("after smalloc, values are %d, %d\n",charsToUint64(ptr.page, NPAGECHARS), charsToUint64(ptr.offset, NOFFSETCHARS));
   return ptr;
 }
 
@@ -212,8 +209,6 @@ void uint64ToChars(uint64_t intVal, char numChars, unsigned char *outArray){
     - Checks whether or not a pointer is null
 *******************************************************************************/
 bool isNull(pointer ptr){
-  printf("is it null? %d  %d\n",(charsToUint64(ptr.page, NPAGECHARS),(charsToUint64(ptr.offset, NOFFSETCHARS))));
-
   return (charsToUint64(ptr.page, NPAGECHARS) == ((1 << (NPAGECHARS*8))-1) &&
 	  (charsToUint64(ptr.offset, NOFFSETCHARS) == (((1 << (NOFFSETCHARS*8))-1))));
 }

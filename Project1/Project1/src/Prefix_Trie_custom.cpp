@@ -85,10 +85,10 @@ pointer Node::setChild(char child, int *size){
     if (isNull(getChild('A'))){
       A = memLayer->smalloc();
       page = charsToUint64(getChild('A').page,(char)NPAGECHARS);
-      printf("A is now in page:%d",page);
       uint64_t offset = charsToUint64(A.offset, (char)NOFFSETCHARS);
       (memLayer->getPages().at(page))->set(offset, Node());
       (*size)++;
+      puts("A is null");
     }
     return A;
   case 'C':
@@ -98,6 +98,7 @@ pointer Node::setChild(char child, int *size){
       uint64_t offset = charsToUint64(C.offset, (char)NOFFSETCHARS);
       (memLayer->getPages().at(page))->set(offset, Node());
       (*size)++;
+      puts("C is null");
     }
     return C;
   case 'G':
@@ -107,15 +108,17 @@ pointer Node::setChild(char child, int *size){
       uint64_t offset = charsToUint64(G.offset, (char)NOFFSETCHARS);
       (memLayer->getPages().at(page))->set(offset, Node());
       (*size)++;
+      puts("G is null");
     }
     return G;
   case 'T':
-    if (isNull(getChild('G'))){
+    if (isNull(getChild('T'))){
       T = memLayer->smalloc();
       page = charsToUint64(getChild('T').page,(char)NPAGECHARS);
       uint64_t offset = charsToUint64(T.offset, (char)NOFFSETCHARS);
       (memLayer->getPages().at(page))->set(offset, Node());
       (*size)++;
+      puts("T is null");
     }
     return T;
   }
@@ -156,7 +159,6 @@ Trie::Trie(){
   root = memLayer->smalloc();
   uint64_t page = charsToUint64(root.page, NPAGECHARS);
   uint64_t offset = charsToUint64(root.offset, NOFFSETCHARS);
-  printf("%d, %d\n",page,offset);
   (memLayer->getPages().at(page))->set(offset, Node());
 }
 
@@ -230,7 +232,6 @@ void Trie::addWord(char *word, int wordLength){
     cNode = (memLayer->getPages()).at(charsToUint64(current.page, NPAGECHARS))->
       get_memory_of(charsToUint64(current.offset, NOFFSETCHARS));
     current = cNode->setChild(word[i],&size);
-    printf("%d\n",charsToUint64(current.page,NPAGECHARS));
   }
   cNode->setTerminal(1);
 }
@@ -248,12 +249,12 @@ bool Trie::searchWord(char *word, int wordLength){
   for(int i = 0; i < wordLength; i++){
     // If the pointer is null, we can't go any farther, so the sequence
     //   is not in the tree.  Just return 0 / False.
+    if(isNull(current)){
+      return 0;
+    }
     cNode = (memLayer->getPages()).at(charsToUint64(current.page, NPAGECHARS))->
       get_memory_of(charsToUint64(current.offset, NOFFSETCHARS));
     current = cNode->getChild(word[i]);
-    if (!(charsToUint64(current.page,NPAGECHARS))){
-        return 0;
-    }
   }
   // If we made it all the way to the end of our target sequence, check if
   //   the node is terminal for some word.
@@ -298,7 +299,32 @@ int main(int argc, char **argv){
   memLayer = new MemoryAllocator<Node>();
   Trie *prefixTrie = new Trie();
   // prefixTrie->setMemLayer((void*)memoryLayer);
+  //Add first, check size
   prefixTrie->addWord((char*)"ACTGACTGACTG",12);
+  printf("Size: %d\n", prefixTrie->getSize());
+  //Add second, all new - should be 12 more
+  prefixTrie->addWord((char*)"CTGACTGACTAT",12);
+  printf("Size: %d\n", prefixTrie->getSize());
+  //Add same sequence, should still be 24
+  prefixTrie->addWord((char*)"CTGACTGACTAT",12);
+  printf("Size: %d\n", prefixTrie->getSize());
+  //Add some of the same, then branch, should be 30
+  prefixTrie->addWord((char*)"CTGACTTGACTG",12);
+
+  //Search sequence hit
+  printf("%d\n",prefixTrie->searchWord("ACTGACTGACTG",12));
+  //Search sequence miss due to non terminal node
+  printf("%d\n",prefixTrie->searchWord("ACT",3));
+  //Search sequence miss due to beginning in the middle
+  printf("%d\n",prefixTrie->searchWord("GACTG",5));
+  //Search sequence hit
+  printf("%d\n",prefixTrie->searchWord("CTGACTGACTAT",12));
+  //Add different size node and try again
+  prefixTrie->addWord((char*)"ACT",3);
+  //Search sequence hit
+  printf("%d\n",prefixTrie->searchWord("ACT",3));
+
+  //Check final size - shouldn't have changed.
   printf("Size: %d\n", prefixTrie->getSize());
 
   exit(EXIT_SUCCESS);
