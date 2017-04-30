@@ -58,6 +58,7 @@ public:
     void* memory(uint64_t virtual_pointer);
     void* reference(uint64_t vortual_pointer);
   void smalloc(pointer *ptr);
+  pointer smalloc();
   uint64_t charsToUint64(unsigned char chars, char numChars);
   void uint64ToChars(uint64_t intVal, char numChars, unsigned char *outArray);
 

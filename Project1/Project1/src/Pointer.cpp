@@ -167,12 +167,28 @@ unsigned int MemoryAllocator::get_total_page_size(unsigned int Node_size){
     return lcm;
 }
 
+/*******************************************************************************
+                             smalloc()
+    - Small memory allocate
+    - Creates a new pointer object and fills it with information regarding the
+        memory location to which it points.
+*******************************************************************************/
+pointer MemoryAllocator::smalloc(){
+  struct pointer ptr;
+  Page *p = pages.back();
+  if (p->is_full()) {
+    p = addPage();
+  }
+  uint64ToChars(pages.back()->getRootAddress(), (char)NPAGECHARS, (unsigned char*)(&(ptr.page)));
+  uint64ToChars(p->get_next_address(), (char)NOFFSETCHARS, (unsigned char*)(&(ptr.offset)));
+  return ptr;
+}
 
 /*******************************************************************************
                              smalloc()
     -small memory allocate
-    -Allocates space for a pointer within the memory layer and assigns the
-       proper page / offset to that pointer.
+    -Uses a preallocated pointer.  Fills the pointer with information regarding
+       the memory location to which it points.
 *******************************************************************************/
 void MemoryAllocator::smalloc(pointer *ptr){
   Page *p = pages.back();
