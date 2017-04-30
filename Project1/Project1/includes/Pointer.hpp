@@ -58,7 +58,6 @@ public:
   uint64_t getRootAddress();
   T* get_memory_of(unsigned int);
   void set(uint64_t, T);
-  void *get_reference_of(unsigned int);
 
 private:
   T *memory;
@@ -81,9 +80,6 @@ template<typename T> class MemoryAllocator{
 public:
   MemoryAllocator();
   ~MemoryAllocator();
-  uint64_t allocate();
-  void* memory(uint64_t);
-  void* reference(uint64_t);
   void smalloc(pointer &);
   pointer smalloc();
   std::vector<Page<T>*> getPages();

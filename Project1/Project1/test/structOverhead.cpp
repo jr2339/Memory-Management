@@ -12,8 +12,8 @@
 
  ******************************************************************************/
 struct pointer{
-  char page[NPAGECHARS];
-  char offset[NOFFSETCHARS];
+  unsigned char page[NPAGECHARS];
+  unsigned char offset[NOFFSETCHARS];
 };
 
 int main(int argc, char **argv){
