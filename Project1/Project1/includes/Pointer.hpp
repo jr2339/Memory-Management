@@ -59,7 +59,7 @@ public:
   uint64_t allocate();
   void* memory(uint64_t);
   void* reference(uint64_t);
-  void smalloc(pointer *);
+  void smalloc(pointer &);
   pointer smalloc();
   std::vector<Page<T>*> getPages();
 
@@ -72,6 +72,7 @@ private:
 
 uint64_t charsToUint64(unsigned char *, char);
 void uint64ToChars(uint64_t, char, unsigned char *);
+bool isNull(pointer ptr);
 
 
 //store one header and one DNA sequence, we put each record to one Node and store it to the trie 

@@ -9,10 +9,10 @@ MemoryAllocator<Node> *memLayer;
 ******************************************************************************/
 
 Node::Node(){
-  A = (pointer) {};
-  C = (pointer) {};
-  G = (pointer) {};
-  T = (pointer) {};
+  A = (pointer) {.page = {255,255,255}, .offset = {255,255}};
+  C = (pointer) {.page = {255,255,255}, .offset = {255,255}};
+  G = (pointer) {.page = {255,255,255}, .offset = {255,255}};
+  T = (pointer) {.page = {255,255,255}, .offset = {255,255}};
   terminal = 0;
 }
 /*******************************************************************************
@@ -68,7 +68,7 @@ pointer Node::getChild(char child){
   case 'T':
     return T;
   }
-  return (pointer){.page={0,0,0}, .offset={0,0}};
+  return (pointer){.page={255,255,255}, .offset={255,255}};
 }
 /*******************************************************************************
 
@@ -82,41 +82,44 @@ pointer Node::setChild(char child, int *size){
   uint64_t page = 0;
   switch(child){
   case 'A':
-    if ((page = charsToUint64(getChild('A').page,(char)NPAGECHARS)) == 0){
+    if (isNull(getChild('A'))){
       A = memLayer->smalloc();
+      page = charsToUint64(getChild('A').page,(char)NPAGECHARS);
+      printf("A is now in page:%d",page);
       uint64_t offset = charsToUint64(A.offset, (char)NOFFSETCHARS);
       (memLayer->getPages().at(page))->set(offset, Node());
       (*size)++;
     }
     return A;
   case 'C':
-    if ((page = charsToUint64(getChild('C').page,(char)NPAGECHARS)) == 0){
+    if (isNull(getChild('C'))){
       C = memLayer->smalloc();
+      page = charsToUint64(getChild('C').page,(char)NPAGECHARS);
       uint64_t offset = charsToUint64(C.offset, (char)NOFFSETCHARS);
       (memLayer->getPages().at(page))->set(offset, Node());
       (*size)++;
     }
     return C;
   case 'G':
-
-    if ((page = charsToUint64(getChild('G').page,(char)NPAGECHARS)) == 0){
+    if (isNull(getChild('G'))){
       G = memLayer->smalloc();
+      page = charsToUint64(getChild('G').page,(char)NPAGECHARS);
       uint64_t offset = charsToUint64(G.offset, (char)NOFFSETCHARS);
       (memLayer->getPages().at(page))->set(offset, Node());
       (*size)++;
     }
     return G;
   case 'T':
-
-    if ((page = charsToUint64(getChild('T').page,(char)NPAGECHARS)) == 0){
+    if (isNull(getChild('G'))){
       T = memLayer->smalloc();
+      page = charsToUint64(getChild('T').page,(char)NPAGECHARS);
       uint64_t offset = charsToUint64(T.offset, (char)NOFFSETCHARS);
       (memLayer->getPages().at(page))->set(offset, Node());
       (*size)++;
     }
     return T;
   }
-  return (pointer){.page = {0,0,0},.offset={0,0}};
+  return (pointer){.page = {255,255,255},.offset={255,255}};
 }
 /*******************************************************************************
 
@@ -153,6 +156,7 @@ Trie::Trie(){
   root = memLayer->smalloc();
   uint64_t page = charsToUint64(root.page, NPAGECHARS);
   uint64_t offset = charsToUint64(root.offset, NOFFSETCHARS);
+  printf("%d, %d\n",page,offset);
   (memLayer->getPages().at(page))->set(offset, Node());
 }
 
@@ -168,7 +172,7 @@ Trie::Trie(){
 
 Trie::Trie(char **sequences, int nSeq, int seqLength){
   size = 0;
-  root = (pointer){};
+  root = memLayer->smalloc();
   pointer current = root;
   Node *cNode;
   for(int i = 0; i<nSeq; i++){
@@ -226,6 +230,7 @@ void Trie::addWord(char *word, int wordLength){
     cNode = (memLayer->getPages()).at(charsToUint64(current.page, NPAGECHARS))->
       get_memory_of(charsToUint64(current.offset, NOFFSETCHARS));
     current = cNode->setChild(word[i],&size);
+    printf("%d\n",charsToUint64(current.page,NPAGECHARS));
   }
   cNode->setTerminal(1);
 }
@@ -289,21 +294,12 @@ int Trie::getSize(){
   return this->size;
 }
 
-void Trie::setMemLayer(void *memLayer){
-
-}
-
 int main(int argc, char **argv){
-  if(argc != 2){
-    puts("Please supply exactly 2 input arguments.");
-    exit(EXIT_FAILURE);
-  }
-
   memLayer = new MemoryAllocator<Node>();
   Trie *prefixTrie = new Trie();
   // prefixTrie->setMemLayer((void*)memoryLayer);
-
-  printf("done");
+  prefixTrie->addWord((char*)"ACTGACTGACTG",12);
+  printf("Size: %d\n", prefixTrie->getSize());
 
   exit(EXIT_SUCCESS);
 }

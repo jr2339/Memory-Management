@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-Wall
+CFLAGS=-Wall -Wno-format
 LDIR=../lib/
 IDIR=../includes/
 BDIR=../bin/
@@ -14,7 +14,7 @@ pointer: pointer.cpp
 pt_custom: Prefix_Trie_custom.cpp $(LDIR)pointer.o
 	$(CC) -o$(BDIR)$@.exe $^ $(CFLAGS) -I$(IDIR)
 pointer_d: pointer.cpp
-	$(CC) -c -o$(LDIR)$@.o $^ $(CFLAGS) -I$(IDIR) -g
+	$(CC) -c -o$(LDIR)$@.o $^ $(CFLAGS) -I$(IDIR) -ggdb
 
 pt_custom_d: Prefix_Trie_custom.cpp $(LDIR)pointer.o
-	$(CC) -o$(BDIR)$@.exe $^ $(CFLAGS) -I$(IDIR) -g
+	$(CC) -o$(BDIR)$@.exe $^ $(CFLAGS) -I$(IDIR) -ggdb
