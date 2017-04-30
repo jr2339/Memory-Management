@@ -6,8 +6,8 @@
 //  Copyright © 2017 jr2339. All rights reserved.
 //
 
-#ifndef Prefix_Trie_hpp
-#define Prefix_Trie_hpp
+#ifndef Prefix_Trie_custom_hpp
+#define Prefix_Trie_custom_hpp
 
 #include <cstdlib>
 #include <cstdio>
