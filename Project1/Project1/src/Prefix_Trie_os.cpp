@@ -1,4 +1,4 @@
-#include "Prefix_Trie.h"
+#include "../includes/Prefix_Trie_os.hpp"
 
 /*******************************************************************************
 
@@ -237,6 +237,29 @@ std::vector<int> Trie::traverse(char *sequence, int seqLength, int wordSize){
   return indexVector;
 }
 
+int parseLine(char* line){
+     int i = strlen(line);
+     const char* p = line;
+     while (*p <'0' || *p > '9') p++;
+           line[i-3] = '\0';
+           i = atoi(p);
+           return i;
+}
+
+int getValue() {
+    FILE* file = fopen("/proc/self/status", "r");
+    int result = -1;
+    char line[128];
+
+    while (fgets(line, 128, file) != NULL){
+        if (strncmp(line, "VmRSS:", 6) == 0){
+            result = parseLine(line);
+            break;
+        }
+    }
+    fclose(file);
+    return result;
+}
 
 /*******************************************************************************
 
@@ -247,4 +270,43 @@ std::vector<int> Trie::traverse(char *sequence, int seqLength, int wordSize){
 
 int Trie::getSize(){
   return this->size;
+}
+
+
+int main(int argc, char **argv) {
+  
+  Trie *prefixTrie = new Trie();
+
+  ifstream infile("/common/contrib/classroom/inf503/project_1/test_reads.fasta");
+  string str;
+  char * seq;
+  int lineNum;
+
+  if(infile.is_open()) {
+
+	seq = new char[50];
+	lineNum = 1;
+	int lazy = 0;
+	while(getline(infile,str) && lazy < 100000) {
+		if(lineNum%2==0) {
+			for(int i = 0; i < 50; i++) 
+				seq[i] = str[i];
+			prefixTrie->addWord(seq, str.length());
+		}
+		lineNum++;
+		lazy++;
+	}
+	
+	int myMem;
+	myMem = getValue();
+
+	printf("Size of mem for OS: %d\n",myMem);
+
+	delete[] seq;
+	infile.close();
+
+  } else
+	printf("File does not exist\n");
+
+  return 0;
 }

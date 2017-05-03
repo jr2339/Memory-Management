@@ -97,7 +97,6 @@ pointer Node::setChild(char child, int *size){
       uint64_t offset = charsToUint64(A.offset, (char)NOFFSETCHARS);
       (memLayer->getPages().at(page))->set(offset, Node());
       (*size)++;
-      puts("A is null");
     }
     return A;
   case 'C':
@@ -107,7 +106,6 @@ pointer Node::setChild(char child, int *size){
       uint64_t offset = charsToUint64(C.offset, (char)NOFFSETCHARS);
       (memLayer->getPages().at(page))->set(offset, Node());
       (*size)++;
-      puts("C is null");
     }
     return C;
   case 'G':
@@ -117,7 +115,6 @@ pointer Node::setChild(char child, int *size){
       uint64_t offset = charsToUint64(G.offset, (char)NOFFSETCHARS);
       (memLayer->getPages().at(page))->set(offset, Node());
       (*size)++;
-      puts("G is null");
     }
     return G;
   case 'T':
@@ -127,7 +124,6 @@ pointer Node::setChild(char child, int *size){
       uint64_t offset = charsToUint64(T.offset, (char)NOFFSETCHARS);
       (memLayer->getPages().at(page))->set(offset, Node());
       (*size)++;
-      puts("T is null");
     }
     return T;
   }
@@ -297,7 +293,29 @@ bool Trie::searchWord(char *word, int wordLength){
   return indexVector;
   }
 */
+int parseLine(char* line){
+     int i = strlen(line);
+     const char* p = line;
+     while (*p <'0' || *p > '9') p++;
+           line[i-3] = '\0';
+           i = atoi(p);
+           return i;
+}
 
+int getValue() {
+    FILE* file = fopen("/proc/self/status", "r");
+    int result = -1;
+    char line[128];
+
+    while (fgets(line, 128, file) != NULL){
+        if (strncmp(line, "VmRSS:", 6) == 0){
+            result = parseLine(line);
+            break;
+        }
+    }
+    fclose(file);
+    return result;
+}
 
 /***************************************************************************//**
  *
@@ -313,6 +331,38 @@ int Trie::getSize(){
 int main(int argc, char **argv){
   memLayer = new MemoryAllocator<Node>();
   Trie *prefixTrie = new Trie();
+
+  ifstream infile("/common/contrib/classroom/inf503/project_1/test_reads.fasta");
+  string str;
+  char * seq;
+  int lineNum; //keep track of even number lines (to read test file)
+
+  if(infile.is_open()) {
+
+	seq = new char[50];
+	lineNum = 1;
+	int lazy = 0;
+	while(getline(infile,str) && lazy < 100000) {
+		if(lineNum%2==0) {
+			for(int i = 0; i < 50; i++) 
+				seq[i] = str[i];
+			prefixTrie->addWord(seq,str.length());	
+		}
+		lineNum++;
+		lazy++;
+	}
+
+	int myMem;
+	myMem = getValue();	
+
+	printf("The custom memory: %d\n",  myMem);
+	delete[] seq;
+	infile.close();
+     } else
+	printf("File does not exist\n"); 
+
+/*
+
   // prefixTrie->setMemLayer((void*)memoryLayer);
   //Add first, check size
   prefixTrie->addWord((char*)"ACTGACTGACTG",12);
@@ -341,6 +391,6 @@ int main(int argc, char **argv){
 
   //Check final size - shouldn't have changed.
   printf("Size: %d\n", prefixTrie->getSize());
-
+*/
   exit(EXIT_SUCCESS);
 }
